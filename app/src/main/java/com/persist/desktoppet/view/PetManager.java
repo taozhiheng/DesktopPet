@@ -6,6 +6,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
+
+import com.persist.desktoppet.PetApplication;
+import com.persist.desktoppet.presenter.DisplayPresenterImpl;
+import com.persist.desktoppet.presenter.IDisplayPresenter;
 import com.persist.desktoppet.ui.PetView;
 
 /**
@@ -19,6 +23,8 @@ public class PetManager implements IDisplayView{
     private WindowManager.LayoutParams mParams;
     //must be application context, otherwise leak canary may happen
     private Context mContext;
+    private IDisplayPresenter mDisplayPresenter;
+
 
 
     private static PetManager mManager;
@@ -32,10 +38,18 @@ public class PetManager implements IDisplayView{
         return mManager;
     }
 
+    public IDisplayPresenter getPresenter()
+    {
+        return mDisplayPresenter;
+    }
+
     private PetManager(Context context)
     {
         this.mContext = context.getApplicationContext();
+        mDisplayPresenter = new DisplayPresenterImpl(
+                PetApplication.getPetModel(), this);
     }
+
 
     public boolean createPetWindow()
     {
@@ -45,6 +59,12 @@ public class PetManager implements IDisplayView{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(displayMetrics);
         mPetView = new PetView(mContext);
+        mPetView.setOnPositionChangeListener(new PetView.OnPositionChangeListener() {
+            @Override
+            public void onPositionChange(int newX, int newY) {
+                mDisplayPresenter.dragPet(newX, newY);
+            }
+        });
         mParams = new WindowManager.LayoutParams();
         mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
@@ -79,13 +99,13 @@ public class PetManager implements IDisplayView{
     }
 
     @Override
-    public boolean dragPetWindow(int dx, int dy) {
+    public boolean dragPetWindow(int newX, int newY) {
         if(mPetView == null)
             return false;
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         //reset x, y...
-        mParams.x += dx;
-        mParams.y += dy;
+        mParams.x = newX;
+        mParams.y = newY;
         wm.updateViewLayout(mPetView, mParams);
         return true;
     }

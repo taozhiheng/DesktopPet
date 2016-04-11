@@ -4,22 +4,16 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.persist.desktoppet.R;
 import com.persist.desktoppet.util.ScreenUtil;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by taozhiheng on 16-4-9.
@@ -46,16 +40,26 @@ public class PetView extends View {
     private boolean mAdjustViewBounds;
     private boolean mAdjustViewBoundsCompat;
 
-    private WindowManager wm;
-    private static WindowManager.LayoutParams params;
+//    private WindowManager wm;
+//    private static WindowManager.LayoutParams params;
     private float startX;
     private float startY;
     private float x;
     private float y;
     private int TOOL_BAR_HIGH = 0;
     private float mTouchSlop;
+    private int mScreenWidth = 0;
+
+    private OnPositionChangeListener mPosListener;
 
     private final static String TAG = "PetView";
+
+
+
+    public interface OnPositionChangeListener
+    {
+        void onPositionChange(int newX, int newY);
+    }
 
     public PetView(Context context)
     {
@@ -83,6 +87,7 @@ public class PetView extends View {
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         TOOL_BAR_HIGH = ScreenUtil.getStatusBarHeight(getContext());
         DisplayMetrics display = ScreenUtil.getDisplay(getContext());
+        mScreenWidth = display.widthPixels;
         mMaxWidth = display.widthPixels/2;
         mMaxHeight = display.widthPixels/2;
         mAdjustViewBounds = true;
@@ -277,11 +282,10 @@ public class PetView extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
 
-                updatePosition();
+                doMove();
                 break;
             case MotionEvent.ACTION_UP:
-                updatePosition();
-
+                doUp();
                 startX = startY = 0;
                 break;
         }
@@ -289,15 +293,26 @@ public class PetView extends View {
     }
 
 
-    private void updatePosition(){
-        if(wm == null)
-            wm = (WindowManager)getContext().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        // View的当前位置
-        params = (WindowManager.LayoutParams)getLayoutParams();
-        params.x = (int)( x - startX);
-        params.y = (int) (y - startY);
-        Log.e("position","paramX:"+params.x+" paramY:"+params.y);
-        wm.updateViewLayout(this, params);
+    private void doMove(){
+        if(mPosListener != null)
+            mPosListener.onPositionChange((int)(x - startX), (int)(y - startY));
+    }
+
+    private void doUp()
+    {
+        if(mPosListener != null) {
+            int newX = (int) (x - startX);
+            if (newX + getWidth() / 2 <= mScreenWidth / 2)
+                newX = 0;
+            else
+                newX = mScreenWidth - getWidth();
+            mPosListener.onPositionChange(newX, (int)(y-startY));
+        }
+    }
+
+    public void setOnPositionChangeListener(OnPositionChangeListener listener)
+    {
+        this.mPosListener = listener;
     }
 
 

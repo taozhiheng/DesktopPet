@@ -44,8 +44,8 @@ public class DisplayPresenterImpl implements IDisplayPresenter{
     }
 
     @Override
-    public void dragPet(int dx, int dy) {
-        mDisplayView.dragPetWindow(dx, dy);
+    public void dragPet(int newX, int newY) {
+        mDisplayView.dragPetWindow(newX, newY);
     }
 
     @Override

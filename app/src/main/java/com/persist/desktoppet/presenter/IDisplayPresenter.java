@@ -9,7 +9,7 @@ public interface IDisplayPresenter {
     void destroyPet();
     void showPet();
     void hidePet();
-    void dragPet(int dx, int dy);
+    void dragPet(int newX, int newY);
     void switchEmotion(int emotion);
     void showMessage(String msg, long duration);
 }

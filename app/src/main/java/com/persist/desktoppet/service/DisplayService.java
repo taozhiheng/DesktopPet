@@ -18,14 +18,12 @@ import com.persist.desktoppet.view.PetManager;
  */
 public class DisplayService extends Service {
 
-    private IDisplayPresenter mDisplayPresenter;
+    private PetManager mPetManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mDisplayPresenter = new DisplayPresenterImpl(
-                PetApplication.getPetModel(),
-                PetManager.newInstance(getApplicationContext()));
+        mPetManager = PetManager.newInstance(getApplicationContext());
     }
 
     @Nullable
@@ -36,13 +34,13 @@ public class DisplayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mDisplayPresenter.createPet();
+        mPetManager.getPresenter().createPet();
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDisplayPresenter.destroyPet();
+        mPetManager.getPresenter().destroyPet();
     }
 }
