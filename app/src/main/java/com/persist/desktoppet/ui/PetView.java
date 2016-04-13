@@ -7,12 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import com.cunoraz.gifview.library.GifView;
 import com.persist.desktoppet.R;
+import com.persist.desktoppet.util.LogUtil;
 import com.persist.desktoppet.util.ScreenUtil;
 
 /**
@@ -21,7 +22,7 @@ import com.persist.desktoppet.util.ScreenUtil;
  * pet view
  * display pet
  */
-public class PetView extends View {
+public class PetView extends GifView {
 
 
     private Context mContext;
@@ -105,120 +106,123 @@ public class PetView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int w;
-        int h;
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        // Desired aspect ratio of the view's contents (not including padding)
-        float desiredAspect = 0.0f;
-
-        // We are allowed to change the view's width
-        boolean resizeWidth = false;
-
-        // We are allowed to change the view's height
-        boolean resizeHeight = false;
-
-        final int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
-        final int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
-
-        if (mDrawable == null) {
-            // If no drawable, its intrinsic size is 0.
-            mDrawableWidth = -1;
-            mDrawableHeight = -1;
-            w = h = 0;
-        } else {
-            w = mDrawableWidth;
-            h = mDrawableHeight;
-            if (w <= 0) w = 1;
-            if (h <= 0) h = 1;
-
-            // We are supposed to adjust view bounds to match the aspect
-            // ratio of our drawable. See if that is possible.
-            if (mAdjustViewBounds) {
-                resizeWidth = widthSpecMode != MeasureSpec.EXACTLY;
-                resizeHeight = heightSpecMode != MeasureSpec.EXACTLY;
-
-                desiredAspect = (float) w / (float) h;
-            }
-        }
-
-        int pleft = mPaddingLeft;
-        int pright = mPaddingRight;
-        int ptop = mPaddingTop;
-        int pbottom = mPaddingBottom;
-
-        int widthSize;
-        int heightSize;
-
-        if (resizeWidth || resizeHeight) {
-            /* If we get here, it means we want to resize to match the
-                drawables aspect ratio, and we have the freedom to change at
-                least one dimension.
-            */
-
-            // Get the max possible width given our constraints
-            widthSize = resolveAdjustedSize(w + pleft + pright, mMaxWidth, widthMeasureSpec);
-
-            // Get the max possible height given our constraints
-            heightSize = resolveAdjustedSize(h + ptop + pbottom, mMaxHeight, heightMeasureSpec);
-
-            if (desiredAspect != 0.0f) {
-                // See what our actual aspect ratio is
-                float actualAspect = (float)(widthSize - pleft - pright) /
-                        (heightSize - ptop - pbottom);
-
-                if (Math.abs(actualAspect - desiredAspect) > 0.0000001) {
-
-                    boolean done = false;
-
-                    // Try adjusting width to be proportional to height
-                    if (resizeWidth) {
-                        int newWidth = (int)(desiredAspect * (heightSize - ptop - pbottom)) +
-                                pleft + pright;
-
-                        // Allow the width to outgrow its original estimate if height is fixed.
-                        if (!resizeHeight && !mAdjustViewBoundsCompat) {
-                            widthSize = resolveAdjustedSize(newWidth, mMaxWidth, widthMeasureSpec);
-                        }
-
-                        if (newWidth <= widthSize) {
-                            widthSize = newWidth;
-                            done = true;
-                        }
-                    }
-
-                    // Try adjusting height to be proportional to width
-                    if (!done && resizeHeight) {
-                        int newHeight = (int)((widthSize - pleft - pright) / desiredAspect) +
-                                ptop + pbottom;
-
-                        // Allow the height to outgrow its original estimate if width is fixed.
-                        if (!resizeWidth && !mAdjustViewBoundsCompat) {
-                            heightSize = resolveAdjustedSize(newHeight, mMaxHeight,
-                                    heightMeasureSpec);
-                        }
-
-                        if (newHeight <= heightSize) {
-                            heightSize = newHeight;
-                        }
-                    }
-                }
-            }
-        } else {
-            /* We are either don't want to preserve the drawables aspect ratio,
-               or we are not allowed to change view dimensions. Just measure in
-               the normal way.
-            */
-            w += pleft + pright;
-            h += ptop + pbottom;
-
-            w = Math.max(w, getSuggestedMinimumWidth());
-            h = Math.max(h, getSuggestedMinimumHeight());
-
-            widthSize = resolveSizeAndState(w, widthMeasureSpec, 0);
-            heightSize = resolveSizeAndState(h, heightMeasureSpec, 0);
-        }
-
-        setMeasuredDimension(widthSize, heightSize);
+//
+//        int w;
+//        int h;
+//
+//        // Desired aspect ratio of the view's contents (not including padding)
+//        float desiredAspect = 0.0f;
+//
+//        // We are allowed to change the view's width
+//        boolean resizeWidth = false;
+//
+//        // We are allowed to change the view's height
+//        boolean resizeHeight = false;
+//
+//        final int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+//        final int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
+//
+//        if (mDrawable == null) {
+//            // If no drawable, its intrinsic size is 0.
+//            mDrawableWidth = -1;
+//            mDrawableHeight = -1;
+//            w = h = 0;
+//        } else {
+//            w = mDrawableWidth;
+//            h = mDrawableHeight;
+//            if (w <= 0) w = 1;
+//            if (h <= 0) h = 1;
+//
+//            // We are supposed to adjust view bounds to match the aspect
+//            // ratio of our drawable. See if that is possible.
+//            if (mAdjustViewBounds) {
+//                resizeWidth = widthSpecMode != MeasureSpec.EXACTLY;
+//                resizeHeight = heightSpecMode != MeasureSpec.EXACTLY;
+//
+//                desiredAspect = (float) w / (float) h;
+//            }
+//        }
+//
+//        int pleft = mPaddingLeft;
+//        int pright = mPaddingRight;
+//        int ptop = mPaddingTop;
+//        int pbottom = mPaddingBottom;
+//
+//        int widthSize;
+//        int heightSize;
+//
+//        if (resizeWidth || resizeHeight) {
+//            /* If we get here, it means we want to resize to match the
+//                drawables aspect ratio, and we have the freedom to change at
+//                least one dimension.
+//            */
+//
+//            // Get the max possible width given our constraints
+//            widthSize = resolveAdjustedSize(w + pleft + pright, mMaxWidth, widthMeasureSpec);
+//
+//            // Get the max possible height given our constraints
+//            heightSize = resolveAdjustedSize(h + ptop + pbottom, mMaxHeight, heightMeasureSpec);
+//
+//            if (desiredAspect != 0.0f) {
+//                // See what our actual aspect ratio is
+//                float actualAspect = (float)(widthSize - pleft - pright) /
+//                        (heightSize - ptop - pbottom);
+//
+//                if (Math.abs(actualAspect - desiredAspect) > 0.0000001) {
+//
+//                    boolean done = false;
+//
+//                    // Try adjusting width to be proportional to height
+//                    if (resizeWidth) {
+//                        int newWidth = (int)(desiredAspect * (heightSize - ptop - pbottom)) +
+//                                pleft + pright;
+//
+//                        // Allow the width to outgrow its original estimate if height is fixed.
+//                        if (!resizeHeight && !mAdjustViewBoundsCompat) {
+//                            widthSize = resolveAdjustedSize(newWidth, mMaxWidth, widthMeasureSpec);
+//                        }
+//
+//                        if (newWidth <= widthSize) {
+//                            widthSize = newWidth;
+//                            done = true;
+//                        }
+//                    }
+//
+//                    // Try adjusting height to be proportional to width
+//                    if (!done && resizeHeight) {
+//                        int newHeight = (int)((widthSize - pleft - pright) / desiredAspect) +
+//                                ptop + pbottom;
+//
+//                        // Allow the height to outgrow its original estimate if width is fixed.
+//                        if (!resizeWidth && !mAdjustViewBoundsCompat) {
+//                            heightSize = resolveAdjustedSize(newHeight, mMaxHeight,
+//                                    heightMeasureSpec);
+//                        }
+//
+//                        if (newHeight <= heightSize) {
+//                            heightSize = newHeight;
+//                        }
+//                    }
+//                }
+//            }
+//        } else {
+//            /* We are either don't want to preserve the drawables aspect ratio,
+//               or we are not allowed to change view dimensions. Just measure in
+//               the normal way.
+//            */
+//            w += pleft + pright;
+//            h += ptop + pbottom;
+//
+//            w = Math.max(w, getSuggestedMinimumWidth());
+//            h = Math.max(h, getSuggestedMinimumHeight());
+//
+//            widthSize = resolveSizeAndState(w, widthMeasureSpec, 0);
+//            heightSize = resolveSizeAndState(h, heightMeasureSpec, 0);
+//        }
+//
+//        setMeasuredDimension(widthSize, heightSize);
     }
 
     private int resolveAdjustedSize(int desiredSize, int maxSize, int measureSpec)
@@ -256,12 +260,12 @@ public class PetView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        super.onDraw(canvas);
-        if(mIsShow) {
-            mDrawable.draw(canvas);
-            Log.d(TAG, "draw drawable" + mDrawable + ",width=" + mDrawable.getIntrinsicWidth() + ", height=" + mDrawable.getIntrinsicHeight());
-            Log.d(TAG, "view,width="+getWidth()+", height="+getHeight());
-        }
+        super.onDraw(canvas);
+//        if(mIsShow) {
+//            mDrawable.draw(canvas);
+//            LogUtil.d(TAG, "draw drawable" + mDrawable + ",width=" + mDrawable.getIntrinsicWidth() + ", height=" + mDrawable.getIntrinsicHeight());
+//            LogUtil.d(TAG, "view,width="+getWidth()+", height="+getHeight());
+//        }
         //draw something else
     }
 
@@ -270,15 +274,15 @@ public class PetView extends View {
         //触摸点相对于屏幕左上角坐标
         x = event.getRawX();
         y = event.getRawY() - TOOL_BAR_HIGH;
-        Log.d(TAG, "------X: "+ x +"------Y:" + y);
+        LogUtil.d(TAG, "------X: "+ x +"------Y:" + y);
 
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 //触摸点相对与view左上角坐标
                 startX = event.getX();
                 startY = event.getY();
-                Log.e("position","startRawX:"+x+" startRawY:"+y);
-                Log.e("position","startX:"+startX+" startY:"+startY);
+                LogUtil.e("position","startRawX:"+x+" startRawY:"+y);
+                LogUtil.e("position","startX:"+startX+" startY:"+startY);
                 break;
             case MotionEvent.ACTION_MOVE:
 

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.presenter.DisplayPresenterImpl;
 import com.persist.desktoppet.presenter.IDisplayPresenter;
+import com.persist.desktoppet.util.LogUtil;
 import com.persist.desktoppet.view.PetManager;
 
 /**
@@ -20,8 +21,11 @@ public class DisplayService extends Service {
 
     private PetManager mPetManager;
 
+    private final static String TAG = "DisplayService";
+
     @Override
     public void onCreate() {
+        LogUtil.d(TAG, "onCreate");
         super.onCreate();
         mPetManager = PetManager.newInstance(getApplicationContext());
     }
@@ -29,17 +33,20 @@ public class DisplayService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        LogUtil.d(TAG, "onBind");
         return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        LogUtil.d(TAG, "onStartCommand");
         mPetManager.getPresenter().createPet();
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
+        LogUtil.d(TAG, "onDestroy");
         super.onDestroy();
         mPetManager.getPresenter().destroyPet();
     }

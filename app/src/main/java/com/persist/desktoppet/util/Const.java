@@ -32,6 +32,7 @@ public class Const {
     public final static String CONFIG_PREF = "DeskopPet_config_preference";
 
     //service intent action
-    public final static String DISPLAY_SERVICE_ACTION = "com.persit.desktoppet.service.DisplayService";
+    public final static String DISPLAY_SERVICE_ACTION = "com.persist.desktoppet.service.DisplayService";
+    public final static String ALARM_ACTION = "com.persist.desktop.receiver.alarm_trigger_action";
 
 }

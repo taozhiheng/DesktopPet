@@ -4,10 +4,8 @@
     tools:context=".view.MainActivity" >
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
+        android:icon="@mipmap/settings"
         android:orderInCategory="100"
-        app:showAsAction="never" />
-    <item android:id="@+id/action_stop"
-        android:title="@string/action_stop"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
+
 </menu>

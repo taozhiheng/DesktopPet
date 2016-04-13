@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import com.persist.desktoppet.PetApplication;
+import com.persist.desktoppet.R;
 import com.persist.desktoppet.presenter.DisplayPresenterImpl;
 import com.persist.desktoppet.presenter.IDisplayPresenter;
 import com.persist.desktoppet.ui.PetView;
@@ -59,6 +60,7 @@ public class PetManager implements IDisplayView{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(displayMetrics);
         mPetView = new PetView(mContext);
+        mPetView.setMovieResource(R.mipmap.gif1);
         mPetView.setOnPositionChangeListener(new PetView.OnPositionChangeListener() {
             @Override
             public void onPositionChange(int newX, int newY) {

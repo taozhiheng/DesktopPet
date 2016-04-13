@@ -31,7 +31,7 @@
             android:process=":remote">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <action android:name="com.persit.desktoppet.service.DisplayService"/>
+                <action android:name="com.persist.desktoppet.service.DisplayService"/>
             </intent-filter>
         </service>
     </application>
