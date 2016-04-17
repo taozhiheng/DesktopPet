@@ -1,1 +1,1 @@
-include ':app', ':gitview'
+include ':app', ':gitview', ':SwipeBackLayout'

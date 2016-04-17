@@ -27,12 +27,33 @@ public class Const {
     public final static int EMOTION_CRY = 1;
     public final static int EMOTION_NULL = 2;
 
-    //sharedPref files
-    public final static String PET_PREF = "DesktopPet_pet_preference";
-    public final static String CONFIG_PREF = "DeskopPet_config_preference";
+    //sharedPref file
+    public final static String PREF_PET = "DesktopPet_preference_pet";
 
     //service intent action
-    public final static String DISPLAY_SERVICE_ACTION = "com.persist.desktoppet.service.DisplayService";
-    public final static String ALARM_ACTION = "com.persist.desktop.receiver.alarm_trigger_action";
+    public final static String ACTION_DISPLAY_SERVICE = "com.persist.desktoppet.service.DisplayService";
+    public final static String ACTION_ALARM = "com.persist.desktop.receiver.alarm_trigger_action";
+
+    //data key
+    public final static String KEY_PET_NAME = "DesktopPet_key_pet_name";
+    public final static String KEY_PET_AGE = "DesktopPet_key_pet_age";
+    public final static String KEY_PET_TYPE = "DesktopPet_key_pet_type";
+    public final static String KEY_PET_SEX = "DesktopPet_key_pet_sex";
+    public final static String KEY_PET_LEVEL = "DesktopPet_key_pet_level";
+    public final static String KEY_PET_EXPERIENCE = "DesktopPet_key_pet_experience";
+    public final static String KEY_PET_PHRASE = "DesktopPet_key_pet_phrase";
+    public final static String KEY_PET_EMOTION = "DesktopPet_key_pet_emotion";
+
+
+    public final static String KEY_THEME = "DesktopPet_key_theme";
+    public final static String KEY_RING = "DesktopPet_key_ring";
+    public final static String KEY_VIBRATE = "DesktopPet_key_vibrate";
+
+    public final static String KEY_SERVICE_ACTION = "DesktopPet_service_action";
+    public final static int SERVICE_START = 0;
+    public final static int SERVICE_RENAME = 1;
+    public final static String KEY_NAME = "DesktopPet_name";
+
+    public final static String KEY_RECEIVER_MAIN = "DesktopPet_receiver_main";
 
 }

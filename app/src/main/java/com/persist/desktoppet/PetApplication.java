@@ -3,8 +3,9 @@ package com.persist.desktoppet;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
-import com.persist.desktoppet.model.ConfigModelmpl;
+import com.persist.desktoppet.model.ConfigModelImpl;
 import com.persist.desktoppet.model.IConfigModel;
 import com.persist.desktoppet.model.IPetModel;
 import com.persist.desktoppet.model.PetModelImpl;
@@ -29,17 +30,20 @@ public class PetApplication extends Application {
         super.onCreate();
     }
 
-    public static IPetModel getPetModel()
+    public static IPetModel getPetModel(Context context)
     {
-        if(mPetModel == null)
-            mPetModel = new PetModelImpl();
+        if(mPetModel == null) {
+            mPetModel = new PetModelImpl(context);
+            Log.d(TAG, "Process:"+android.os.Process.myPid()+" createModel:"+mPetModel.toString());
+        }
+        Log.d(TAG, "getModel:"+mPetModel.toString());
         return mPetModel;
     }
 
-    public static IConfigModel getConfigModel()
+    public static IConfigModel getConfigModel(Context context)
     {
         if(mConfigModel == null)
-            mConfigModel = new ConfigModelmpl();
+            mConfigModel = new ConfigModelImpl(context);
         return mConfigModel;
     }
 

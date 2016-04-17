@@ -2,16 +2,22 @@ package com.persist.desktoppet.view;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
 import com.persist.desktoppet.presenter.DisplayPresenterImpl;
 import com.persist.desktoppet.presenter.IDisplayPresenter;
 import com.persist.desktoppet.ui.PetView;
+import com.persist.desktoppet.util.Const;
+import com.persist.desktoppet.util.LogUtil;
 
 /**
  * Created by taozhiheng on 16-4-9.
@@ -48,7 +54,7 @@ public class PetManager implements IDisplayView{
     {
         this.mContext = context.getApplicationContext();
         mDisplayPresenter = new DisplayPresenterImpl(
-                PetApplication.getPetModel(), this);
+                PetApplication.getPetModel(context), this);
     }
 
 
@@ -61,10 +67,16 @@ public class PetManager implements IDisplayView{
         wm.getDefaultDisplay().getMetrics(displayMetrics);
         mPetView = new PetView(mContext);
         mPetView.setMovieResource(R.mipmap.gif1);
-        mPetView.setOnPositionChangeListener(new PetView.OnPositionChangeListener() {
+        mPetView.setOnCloseListener(new PetView.OnCloseListener() {
             @Override
-            public void onPositionChange(int newX, int newY) {
-                mDisplayPresenter.dragPet(newX, newY);
+            public void onClose() {
+                mDisplayPresenter.destroyPet();
+            }
+        });
+        mPetView.setOnMoveListener(new PetView.OnMoveListener() {
+            @Override
+            public void onMove(int dx, int dy) {
+                dragPetWindow(dx, dy);
             }
         });
         mParams = new WindowManager.LayoutParams();
@@ -88,6 +100,9 @@ public class PetManager implements IDisplayView{
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         wm.removeView(mPetView);
         mPetView = null;
+        Intent intent = new Intent(Const.ACTION_DISPLAY_SERVICE);
+        intent.setPackage(mContext.getPackageName());
+        mContext.stopService(intent);
         return true;
     }
 
@@ -108,6 +123,7 @@ public class PetManager implements IDisplayView{
         //reset x, y...
         mParams.x = newX;
         mParams.y = newY;
+        LogUtil.d(TAG, "dragPetView, p.x="+mParams.x+", p.y="+mParams.y);
         wm.updateViewLayout(mPetView, mParams);
         return true;
     }
@@ -120,7 +136,13 @@ public class PetManager implements IDisplayView{
         return true;
     }
 
-
+    @Override
+    public boolean rename(String name) {
+        if(mPetView == null || (mPetView.getName() != null && mPetView.getName().equals(name)))
+            return false;
+        mPetView.setName(name);
+        return true;
+    }
 
     public boolean showMessage(String msg, long duration)
     {

@@ -11,7 +11,13 @@ public interface IMainPresenter {
 
     void destroyPet();
 
-    void loadConfig();
+    void loadPet();
+
+    void savePet();
+
+    void editPetName(String name);
+
+    void editPetPhrase(String phrase);
 
     void editConfig();
 }

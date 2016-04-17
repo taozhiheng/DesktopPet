@@ -23,11 +23,20 @@ public class PetBean {
     private int mLevel;
     //the experience of the current level
     private int mExperience;
+    //the pet phrase of the pet
+    private String mPhrase;
     //the emotion of the pet
     private int mEmotion;
 
+    public PetBean()
+    {
+        this.mAge = 0;
+        this.mLevel = 0;
+        this.mEmotion = Const.EMOTION_SMILE;
+    }
+
     //value check is needed here.
-    public PetBean(String name, long age, int type, boolean sex, int level, int experience, int emotion) {
+    public PetBean(String name, long age, int type, boolean sex, int level, int experience, String phrase, int emotion) {
         if(name == null)
             throw new IllegalArgumentException("the name of the pet must not be null");
         this.mName = name;
@@ -44,6 +53,7 @@ public class PetBean {
         if(experience < 0 || experience >= getNeededExperience(level))
             experience = 0;
         this.mExperience = experience;
+        this.mPhrase = phrase;
         if(emotion < 0 || emotion >= Const.EMOTION_NULL)
             emotion = Const.EMOTION_SMILE;
         this.mEmotion = emotion;
@@ -95,6 +105,11 @@ public class PetBean {
             setExperience(mExperience+increase);
     }
 
+    public void setPhrase(String phrase)
+    {
+        this.mPhrase = phrase;
+    }
+
     public void setEmotion(int emotion)
     {
         if(emotion >= 0 && emotion < Const.EMOTION_NULL)
@@ -125,6 +140,11 @@ public class PetBean {
     public int getExperience()
     {
         return mExperience;
+    }
+
+    public String getPhrase()
+    {
+        return mPhrase;
     }
 
     public int getEmotion()

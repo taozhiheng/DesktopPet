@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.presenter.DisplayPresenterImpl;
 import com.persist.desktoppet.presenter.IDisplayPresenter;
+import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
 import com.persist.desktoppet.view.PetManager;
 
@@ -40,7 +41,20 @@ public class DisplayService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtil.d(TAG, "onStartCommand");
-        mPetManager.getPresenter().createPet();
+        int cmd;
+        if(intent == null)
+            cmd = Const.SERVICE_START;
+        else
+            cmd = intent.getIntExtra(Const.KEY_SERVICE_ACTION, Const.SERVICE_START);
+        switch (cmd)
+        {
+            case Const.SERVICE_START:
+                mPetManager.getPresenter().createPet();
+                break;
+            case Const.SERVICE_RENAME:
+                mPetManager.getPresenter().rename(intent.getStringExtra(Const.KEY_NAME));
+                break;
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -49,5 +63,7 @@ public class DisplayService extends Service {
         LogUtil.d(TAG, "onDestroy");
         super.onDestroy();
         mPetManager.getPresenter().destroyPet();
+        Intent intent = new Intent(Const.KEY_RECEIVER_MAIN);
+        sendBroadcast(intent);
     }
 }

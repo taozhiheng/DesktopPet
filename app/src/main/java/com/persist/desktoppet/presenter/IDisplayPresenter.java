@@ -11,5 +11,6 @@ public interface IDisplayPresenter {
     void hidePet();
     void dragPet(int newX, int newY);
     void switchEmotion(int emotion);
+    void rename(String name);
     void showMessage(String msg, long duration);
 }

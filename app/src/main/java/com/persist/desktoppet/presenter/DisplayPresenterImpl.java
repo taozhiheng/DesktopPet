@@ -1,6 +1,7 @@
 package com.persist.desktoppet.presenter;
 
 import com.persist.desktoppet.model.IPetModel;
+import com.persist.desktoppet.util.LogUtil;
 import com.persist.desktoppet.view.IDisplayView;
 
 /**
@@ -12,6 +13,8 @@ public class DisplayPresenterImpl implements IDisplayPresenter{
 
     private IPetModel mPetModel;
     private IDisplayView mDisplayView;
+
+    private final static String TAG = "DisplayPresenterImpl";
 
     public DisplayPresenterImpl(IPetModel petModel, IDisplayView displayView)
     {
@@ -26,6 +29,9 @@ public class DisplayPresenterImpl implements IDisplayPresenter{
     public void createPet() {
         //model do something
         mDisplayView.createPetWindow();
+        mPetModel.loadPet();
+        mDisplayView.rename(mPetModel.getPet().getName());
+        LogUtil.d(TAG, mPetModel.toString()+"-"+mPetModel.getPet().getName());
     }
 
     @Override
@@ -51,6 +57,11 @@ public class DisplayPresenterImpl implements IDisplayPresenter{
     @Override
     public void switchEmotion(int emotion) {
         mDisplayView.switchEmotion(emotion);
+    }
+
+    @Override
+    public void rename(String name) {
+        mDisplayView.rename(name);
     }
 
     @Override

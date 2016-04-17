@@ -14,4 +14,25 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="PetAttrTitleStyle">
+        <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="PetAttrContentStyle" parent="PetAttrTitleStyle">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppendContentStyle" parent="PetAttrTitleStyle">
+        <item name="android:gravity">center_vertical|right</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_marginLeft">@dimen/text_margin</item>
+        <item name="android:layout_marginRight">@dimen/text_margin</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <!--<item name="android:background">@color/divider</item>-->
+    </style>
+
 </resources>
