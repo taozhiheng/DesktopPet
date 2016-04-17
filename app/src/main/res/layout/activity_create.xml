@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/PetAttrContentStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+            <EditText
+                style="@style/PetAttrContentStyle"
+                android:id="@+id/create_name"
+                android:lines="1"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View style="@style/DividerStyle" />
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/PetAttrContentStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phrase" />
+            <EditText
+                style="@style/PetAttrContentStyle"
+                android:id="@+id/create_phrase"
+                android:lines="1"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View style="@style/DividerStyle" />
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/PetAttrContentStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"  />
+            <RadioGroup
+                android:id="@+id/create_sex"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:checkedButton="@+id/male"
+                android:layout_marginLeft="@dimen/item_margin"
+                android:layout_marginRight="@dimen/item_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/male"
+                    android:layout_weight="1"
+                    android:text="@string/sex_male"
+                    android:background="@color/blue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/female"
+                    android:layout_weight="1"
+                    android:text="@string/sex_female"
+                    android:background="@color/pink"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <TextView
+            style="@style/PetAttrContentStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/type" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/create_type_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/create_ok"
+            android:layout_marginTop="@dimen/item_margin"
+            android:text="@string/ok"
+            android:background="@drawable/ok_btn_bg"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

@@ -50,7 +50,7 @@ public class ConfigActivity extends BaseActivity implements IConfigView{
         mTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog.show();
+                choseTheme();
             }
         });
 
@@ -68,17 +68,15 @@ public class ConfigActivity extends BaseActivity implements IConfigView{
             }
         });
 
-        initDialog();
-
         mConfigPresenter = new ConfigPresenterImpl(PetApplication.getConfigModel(this), this);
     }
 
-    private void initDialog()
+    private void choseTheme()
     {
         if(mDialog == null) {
             mDialog = new AlertDialog.Builder(this)
                     .setTitle("选择主题")
-                    .setSingleChoiceItems(getResources().getStringArray(R.array.theme_array), 0,
+                    .setSingleChoiceItems(getResources().getStringArray(R.array.theme_array), mId,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -89,6 +87,7 @@ public class ConfigActivity extends BaseActivity implements IConfigView{
                     .create();
         }
         mDialog.getListView().setItemChecked(mId, true);
+        mDialog.show();
     }
 
 

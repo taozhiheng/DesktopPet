@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.persist.desktoppet.PetApplication;
@@ -37,12 +42,15 @@ public class MainActivity extends BaseActivity implements IMainView{
     private final static String TAG = "MainActivity";
     private IMainPresenter mMainPresenter;
 
+    private CollapsingToolbarLayout mToolbarLayout;
+    private ImageView mIcon;
     private FloatingActionButton fab;
     private TextView mAge;
     private TextView mType;
     private TextView mSex;
     private TextView mLevel;
     private TextView mPhrase;
+    private Button mChange;
 
     private AlertDialog mDialog;
     private EditText mText;
@@ -59,18 +67,17 @@ public class MainActivity extends BaseActivity implements IMainView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        mIcon = (ImageView) findViewById(R.id.pet_icon);
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setOnLongClickListener(new View.OnLongClickListener() {
+        toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 mEditName = true;
-                ActionBar actionBar = getSupportActionBar();
-                if(actionBar != null)
-                    showDialog(actionBar.getTitle());
-                else
-                    showDialog(null);
-                return false;
+                showDialog(mToolbarLayout.getTitle());
             }
         });
 
@@ -107,6 +114,14 @@ public class MainActivity extends BaseActivity implements IMainView{
             }
         });
 
+        mChange = (Button) findViewById(R.id.pet_change);
+        mChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateActivity.class));
+            }
+        });
+
         mMainPresenter = new MainPresenterImpl(PetApplication.getPetModel(this), this);
 
         registerReceiver(mReceiver, new IntentFilter(Const.KEY_RECEIVER_MAIN));
@@ -123,8 +138,12 @@ public class MainActivity extends BaseActivity implements IMainView{
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String content = mText.getText().toString();
-                            if(mEditName)
-                                mMainPresenter.editPetName(content);
+                            if(mEditName) {
+                                if(content.equals(""))
+                                    Snackbar.make(mChange, "名字不可为空", Snackbar.LENGTH_SHORT).show();
+                                else
+                                    mMainPresenter.editPetName(content);
+                            }
                             else
                                 mMainPresenter.editPetPhrase(content);
                         }
@@ -199,12 +218,13 @@ public class MainActivity extends BaseActivity implements IMainView{
 
     @Override
     public void loadPet(PetBean pet) {
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
+        if(pet.getName() == null)
         {
-            actionBar.setTitle(pet.getName());
+            startActivity(new Intent(this, CreateActivity.class));
         }
+        mToolbarLayout.setTitle(pet.getName());
         mAge.setText(String.format(Locale.CHINA, "%d 天", pet.getAge()));
+        mIcon.setImageResource(Const.ICONS[pet.getType()]);
         mType.setText(getResources().getStringArray(R.array.type_array)[pet.getType()]);
         if(pet.getSex())
             mSex.setText("雌");
@@ -216,9 +236,7 @@ public class MainActivity extends BaseActivity implements IMainView{
 
     @Override
     public void editPetName(String name) {
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
-            actionBar.setTitle(name);
+        mToolbarLayout.setTitle(name);
         Intent intent = new Intent(Const.ACTION_DISPLAY_SERVICE);
         intent.setPackage(getPackageName());
         intent.putExtra(Const.KEY_SERVICE_ACTION, Const.SERVICE_RENAME);

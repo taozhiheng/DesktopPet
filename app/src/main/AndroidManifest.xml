@@ -24,6 +24,8 @@
         </activity>
 
         <activity android:name=".view.ConfigActivity"/>
+        <activity android:name=".view.CreateActivity"
+            android:windowSoftInputMode="adjustResize"/>
 
         <service
             android:name=".service.DisplayService"

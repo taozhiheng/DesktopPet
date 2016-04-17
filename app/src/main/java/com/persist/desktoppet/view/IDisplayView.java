@@ -8,7 +8,7 @@ package com.persist.desktoppet.view;
 public interface IDisplayView {
     boolean createPetWindow();
     boolean destroyPetWindow();
-    boolean dragPetWindow(int dx, int dy);
+    boolean dragPetWindow(int newX, int newY);
     boolean switchVisibility(boolean isShow);
     boolean switchEmotion(int emotion);
     boolean rename(String name);

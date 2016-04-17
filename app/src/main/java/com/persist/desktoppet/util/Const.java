@@ -1,5 +1,7 @@
 package com.persist.desktoppet.util;
 
+import com.persist.desktoppet.R;
+
 /**
  * Created by taozhiheng on 16-4-7.
  *
@@ -55,5 +57,8 @@ public class Const {
     public final static String KEY_NAME = "DesktopPet_name";
 
     public final static String KEY_RECEIVER_MAIN = "DesktopPet_receiver_main";
+
+    public final static int[] ICONS = {R.mipmap.cat, R.mipmap.dog, R.mipmap.bird, R.mipmap.bear,
+            R.mipmap.penguin, R.mipmap.tiger, R.mipmap.lion, R.mipmap.rabbit, R.mipmap.rabbit};
 
 }

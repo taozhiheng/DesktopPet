@@ -92,6 +92,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_stop">Stop</string>
     <string name="window_title">Pet</string>
+    <string name="name">名　字</string>
     <string name="age">年　龄</string>
     <string name="type">类　别</string>
     <string name="sex">性　别</string>
@@ -101,6 +102,9 @@
     <string name="ring">接受微信响铃提醒</string>
     <string name="alarm">接受微信震动提醒</string>
     <string name="change_pet">更换宠物</string>
+    <string name="sex_male">雄</string>
+    <string name="sex_female">雌</string>
+    <string name="ok">完成</string>
     <string-array name="theme_array">
         <item>男生版</item>
         <item>女生版</item>
