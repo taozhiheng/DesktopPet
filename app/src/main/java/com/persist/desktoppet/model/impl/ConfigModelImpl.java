@@ -1,9 +1,10 @@
-package com.persist.desktoppet.model;
+package com.persist.desktoppet.model.impl;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.persist.desktoppet.bean.ConfigBean;
+import com.persist.desktoppet.model.imodel.IConfigModel;
 import com.persist.desktoppet.util.Const;
 
 /**
@@ -11,7 +12,7 @@ import com.persist.desktoppet.util.Const;
  *
  * config model implementation
  */
-public class ConfigModelImpl implements IConfigModel{
+public class ConfigModelImpl implements IConfigModel {
 
     private ConfigBean mConfig;
     private SharedPreferences mSp;

@@ -1,4 +1,4 @@
-package com.persist.desktoppet.view;
+package com.persist.desktoppet.view.iview;
 
 import com.persist.desktoppet.bean.ConfigBean;
 

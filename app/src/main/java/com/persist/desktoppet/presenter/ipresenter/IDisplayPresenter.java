@@ -1,4 +1,4 @@
-package com.persist.desktoppet.presenter;
+package com.persist.desktoppet.presenter.ipresenter;
 
 /**
  * Created by taozhiheng on 16-4-9.

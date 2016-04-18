@@ -2,6 +2,8 @@ package com.persist.desktoppet.util;
 
 import com.persist.desktoppet.R;
 
+import java.util.UUID;
+
 /**
  * Created by taozhiheng on 16-4-7.
  *
@@ -60,5 +62,19 @@ public class Const {
 
     public final static int[] ICONS = {R.mipmap.cat, R.mipmap.dog, R.mipmap.bird, R.mipmap.bear,
             R.mipmap.penguin, R.mipmap.tiger, R.mipmap.lion, R.mipmap.rabbit, R.mipmap.rabbit};
+
+    public static final UUID BLUETOOTH_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+    public static final String BLUETOOTH_NAME = "DesktopPet_Bluetooth";
+
+    public static final int MESSAGE_STATE_CHANGE = 1;
+    public static final int MESSAGE_READ = 2;
+    public static final int MESSAGE_WRITE = 3;
+    public static final int MESSAGE_DEVICE_NAME = 4;
+    public static final int MESSAGE_TOAST = 5;
+
+    // Key names received from the BluetoothChatService Handler
+    public static final String DEVICE_NAME = "device_name";
+    public static final String TOAST = "toast";
+
 
 }

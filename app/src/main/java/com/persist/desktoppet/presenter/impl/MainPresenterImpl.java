@@ -1,16 +1,17 @@
-package com.persist.desktoppet.presenter;
+package com.persist.desktoppet.presenter.impl;
 
 
-import com.persist.desktoppet.model.IPetModel;
+import com.persist.desktoppet.model.imodel.IPetModel;
+import com.persist.desktoppet.presenter.ipresenter.IMainPresenter;
 import com.persist.desktoppet.util.LogUtil;
-import com.persist.desktoppet.view.IMainView;
+import com.persist.desktoppet.view.iview.IMainView;
 
 /**
  * Created by taozhiheng on 16-4-7.
  *
  * main presenter implementation
  */
-public class MainPresenterImpl implements IMainPresenter{
+public class MainPresenterImpl implements IMainPresenter {
 
     private IPetModel mPetModel;
     private IMainView mMainView;
@@ -63,5 +64,10 @@ public class MainPresenterImpl implements IMainPresenter{
     @Override
     public void editConfig() {
         mMainView.editConfig();
+    }
+
+    @Override
+    public void startBluetooth() {
+        mMainView.startBluetooth();
     }
 }

@@ -1,10 +1,9 @@
-package com.persist.desktoppet.view;
+package com.persist.desktoppet.view.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +13,9 @@ import android.widget.TextView;
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
 import com.persist.desktoppet.bean.ConfigBean;
-import com.persist.desktoppet.presenter.ConfigPresenterImpl;
-import com.persist.desktoppet.presenter.IConfigPresenter;
+import com.persist.desktoppet.presenter.impl.ConfigPresenterImpl;
+import com.persist.desktoppet.presenter.ipresenter.IConfigPresenter;
+import com.persist.desktoppet.view.iview.IConfigView;
 
 
 /**
@@ -23,7 +23,7 @@ import com.persist.desktoppet.presenter.IConfigPresenter;
  *
  * config view implementation
  */
-public class ConfigActivity extends BaseActivity implements IConfigView{
+public class ConfigActivity extends BaseActivity implements IConfigView {
 
     private TextView mTheme;
     private SwitchCompat mRing;

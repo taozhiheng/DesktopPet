@@ -1,4 +1,4 @@
-package com.persist.desktoppet.view;
+package com.persist.desktoppet.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,14 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
 import com.persist.desktoppet.adapter.TypeAdapter;
 import com.persist.desktoppet.bean.PetBean;
 import com.persist.desktoppet.bean.TypeBean;
-import com.persist.desktoppet.model.IPetModel;
+import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.util.Const;
 
 import java.util.ArrayList;

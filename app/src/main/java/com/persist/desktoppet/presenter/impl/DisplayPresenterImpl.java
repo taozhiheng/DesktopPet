@@ -1,15 +1,16 @@
-package com.persist.desktoppet.presenter;
+package com.persist.desktoppet.presenter.impl;
 
-import com.persist.desktoppet.model.IPetModel;
+import com.persist.desktoppet.model.imodel.IPetModel;
+import com.persist.desktoppet.presenter.ipresenter.IDisplayPresenter;
 import com.persist.desktoppet.util.LogUtil;
-import com.persist.desktoppet.view.IDisplayView;
+import com.persist.desktoppet.view.iview.IDisplayView;
 
 /**
  * Created by taozhiheng on 16-4-9.
  *
  * display presenter implementation
  */
-public class DisplayPresenterImpl implements IDisplayPresenter{
+public class DisplayPresenterImpl implements IDisplayPresenter {
 
     private IPetModel mPetModel;
     private IDisplayView mDisplayView;

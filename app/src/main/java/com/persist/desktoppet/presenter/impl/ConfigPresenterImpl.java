@@ -1,15 +1,15 @@
-package com.persist.desktoppet.presenter;
+package com.persist.desktoppet.presenter.impl;
 
-import com.persist.desktoppet.bean.ConfigBean;
-import com.persist.desktoppet.model.IConfigModel;
-import com.persist.desktoppet.view.IConfigView;
+import com.persist.desktoppet.model.imodel.IConfigModel;
+import com.persist.desktoppet.presenter.ipresenter.IConfigPresenter;
+import com.persist.desktoppet.view.iview.IConfigView;
 
 /**
  * Created by taozhiheng on 16-4-7.
  *
  * config presenter implementation
  */
-public class ConfigPresenterImpl implements IConfigPresenter{
+public class ConfigPresenterImpl implements IConfigPresenter {
 
     private IConfigModel mConfigModel;
     private IConfigView mConfigView;

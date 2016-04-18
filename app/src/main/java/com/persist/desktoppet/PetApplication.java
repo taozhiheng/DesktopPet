@@ -5,11 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
-import com.persist.desktoppet.model.ConfigModelImpl;
-import com.persist.desktoppet.model.IConfigModel;
-import com.persist.desktoppet.model.IPetModel;
-import com.persist.desktoppet.model.PetModelImpl;
-import com.persist.desktoppet.util.LogUtil;
+import com.google.gson.Gson;
+import com.persist.desktoppet.model.impl.ConfigModelImpl;
+import com.persist.desktoppet.model.imodel.IConfigModel;
+import com.persist.desktoppet.model.imodel.IPetModel;
+import com.persist.desktoppet.model.impl.PetModelImpl;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ public class PetApplication extends Application {
 
     private static IPetModel mPetModel;
     private static IConfigModel mConfigModel;
+    private static Gson mGson;
 
     @Override
     public void onCreate() {
@@ -45,6 +46,13 @@ public class PetApplication extends Application {
         if(mConfigModel == null)
             mConfigModel = new ConfigModelImpl(context);
         return mConfigModel;
+    }
+
+    public static Gson getGson()
+    {
+        if(mGson == null)
+            mGson = new Gson();
+        return mGson;
     }
 
     public static boolean isServiceRunning(Context context, String serviceClassName){

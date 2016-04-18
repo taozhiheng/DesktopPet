@@ -1,28 +1,26 @@
-package com.persist.desktoppet.view;
+package com.persist.desktoppet.view.window;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Gravity;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.PopupWindow;
 
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
-import com.persist.desktoppet.presenter.DisplayPresenterImpl;
-import com.persist.desktoppet.presenter.IDisplayPresenter;
+import com.persist.desktoppet.presenter.impl.DisplayPresenterImpl;
+import com.persist.desktoppet.presenter.ipresenter.IDisplayPresenter;
 import com.persist.desktoppet.ui.PetView;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
+import com.persist.desktoppet.view.iview.IDisplayView;
 
 /**
  * Created by taozhiheng on 16-4-9.
  */
-public class PetManager implements IDisplayView{
+public class PetManager implements IDisplayView {
 
     private final static String TAG = "PetManager";
 

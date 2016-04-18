@@ -1,4 +1,4 @@
-package com.persist.desktoppet.view;
+package com.persist.desktoppet.view.iview;
 
 import com.persist.desktoppet.bean.PetBean;
 
@@ -20,4 +20,6 @@ public interface IMainView {
     void editPetPhrase(String phrase);
 
     void editConfig();
+
+    void startBluetooth();
 }

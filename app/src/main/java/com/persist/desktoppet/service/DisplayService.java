@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.persist.desktoppet.PetApplication;
-import com.persist.desktoppet.presenter.DisplayPresenterImpl;
-import com.persist.desktoppet.presenter.IDisplayPresenter;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
-import com.persist.desktoppet.view.PetManager;
+import com.persist.desktoppet.view.window.PetManager;
 
 /**
  * Created by taozhiheng on 16-4-9.

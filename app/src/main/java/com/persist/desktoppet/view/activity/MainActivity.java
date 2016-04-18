@@ -1,4 +1,4 @@
-package com.persist.desktoppet.view;
+package com.persist.desktoppet.view.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,13 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -25,10 +22,12 @@ import android.widget.TextView;
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
 import com.persist.desktoppet.bean.PetBean;
-import com.persist.desktoppet.presenter.IMainPresenter;
-import com.persist.desktoppet.presenter.MainPresenterImpl;
+import com.persist.desktoppet.bluetooth.ConnectActivity;
+import com.persist.desktoppet.presenter.ipresenter.IMainPresenter;
+import com.persist.desktoppet.presenter.impl.MainPresenterImpl;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
+import com.persist.desktoppet.view.iview.IMainView;
 
 import java.util.Locale;
 
@@ -37,7 +36,7 @@ import java.util.Locale;
  *
  * main view implementation
  */
-public class MainActivity extends BaseActivity implements IMainView{
+public class MainActivity extends BaseActivity implements IMainView {
 
     private final static String TAG = "MainActivity";
     private IMainPresenter mMainPresenter;
@@ -193,6 +192,9 @@ public class MainActivity extends BaseActivity implements IMainView{
         //noinspection SimplifiableIfStatement
         switch (id)
         {
+            case R.id.action_bluetooth:
+                mMainPresenter.startBluetooth();
+                break;
             case R.id.action_settings:
                 mMainPresenter.editConfig();
                 break;
@@ -252,5 +254,10 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     public void editConfig() {
         startActivity(new Intent(this, ConfigActivity.class));
+    }
+
+    @Override
+    public void startBluetooth() {
+        startActivity(new Intent(this, ConnectActivity.class));
     }
 }

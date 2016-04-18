@@ -1,7 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.MainActivity" >
+    tools:context=".view.activity.MainActivity" >
+
+    <item android:id="@+id/action_bluetooth"
+        android:title="@string/action_bluetooth"
+        android:icon="@mipmap/bluetooth"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@mipmap/settings"

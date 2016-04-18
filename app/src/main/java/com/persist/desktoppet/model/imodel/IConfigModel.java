@@ -1,4 +1,4 @@
-package com.persist.desktoppet.model;
+package com.persist.desktoppet.model.imodel;
 
 import com.persist.desktoppet.bean.ConfigBean;
 

@@ -1,10 +1,10 @@
-package com.persist.desktoppet.model;
+package com.persist.desktoppet.model.impl;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.transition.Transition;
 
 import com.persist.desktoppet.bean.PetBean;
+import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.util.Const;
 
 /**
@@ -12,7 +12,7 @@ import com.persist.desktoppet.util.Const;
  *
  * pet model implementation
  */
-public class PetModelImpl implements IPetModel{
+public class PetModelImpl implements IPetModel {
 
     private PetBean mPet;
     private SharedPreferences mSp;
