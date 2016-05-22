@@ -27,16 +27,28 @@ public class PetBean {
     private String mPhrase;
     //the emotion of the pet
     private int mEmotion;
+    //the id of the pet,actually the id is the mac address of the device
+    private String mId;
+    //whether the pet is alone
+    private boolean mAlone;
+    //the power the of pet,
+    private int mPower;
+
+    public final static int MAX_POWER = 100;
 
     public PetBean()
     {
         this.mAge = 0;
         this.mLevel = 0;
         this.mEmotion = Const.EMOTION_SMILE;
+        this.mAlone = true;
+        mPower = 0;
     }
 
     //value check is needed here.
-    public PetBean(String name, long age, int type, boolean sex, int level, int experience, String phrase, int emotion) {
+    public PetBean(String name, long age, int type, boolean sex,
+                   int level, int experience, String phrase, int emotion,
+                   String id, boolean alone, int power) {
         if(name == null)
             throw new IllegalArgumentException("the name of the pet must not be null");
         this.mName = name;
@@ -57,6 +69,9 @@ public class PetBean {
         if(emotion < 0 || emotion >= Const.EMOTION_NULL)
             emotion = Const.EMOTION_SMILE;
         this.mEmotion = emotion;
+        this.mId = id;
+        this.mAlone = alone;
+        this.mPower = power;
     }
 
     public void setName(String name) {
@@ -99,6 +114,7 @@ public class PetBean {
         }
     }
 
+
     public void increaseExperience(int increase)
     {
         if(increase > 0)
@@ -114,6 +130,37 @@ public class PetBean {
     {
         if(emotion >= 0 && emotion < Const.EMOTION_NULL)
             this.mEmotion = emotion;
+    }
+
+    public void setId(String id)
+    {
+        if(id != null)
+            this.mId = id;
+    }
+
+    public void setAlone(boolean alone)
+    {
+        this.mAlone =  alone;
+    }
+
+    public void setPower(int power)
+    {
+        this.mPower = power;
+    }
+
+    public void increasePower(int power)
+    {
+        if(mPower > power)
+            mPower -= power;
+        else
+            mPower = 0;
+    }
+
+    public void decreasePower(int power)
+    {
+        mPower += power;
+        if(mPower > MAX_POWER)
+            mPower = MAX_POWER;
     }
 
     public String getName() {
@@ -152,6 +199,20 @@ public class PetBean {
         return mEmotion;
     }
 
+    public String getId()
+    {
+        return mId;
+    }
+
+    public boolean getAlone()
+    {
+        return mAlone;
+    }
+
+    public int getPower()
+    {
+        return mPower;
+    }
 
     //calculate the max experience of next level
     public static int getNeededExperience(int level)
@@ -160,4 +221,5 @@ public class PetBean {
             return 0;
         return Const.LEVEL_GAP * (level+1);
     }
+
 }

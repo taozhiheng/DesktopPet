@@ -13,4 +13,6 @@ public interface IDisplayView {
     boolean switchEmotion(int emotion);
     boolean rename(String name);
     boolean showMessage(String msg, long duration);
+    void startRun();
+    void stopRun();
 }

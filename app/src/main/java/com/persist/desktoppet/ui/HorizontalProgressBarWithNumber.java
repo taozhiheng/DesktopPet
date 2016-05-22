@@ -5,11 +5,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.ProgressBar;
 
-import com.zhy.library.view.R;
+import com.persist.desktoppet.R;
+
 
 public class HorizontalProgressBarWithNumber extends ProgressBar
 {
@@ -64,6 +64,13 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 	protected boolean mIfDrawText = true;
 
 	protected static final int VISIBLE = 0;
+
+	/**reached color generator which can calculate the color associate with ratio(=progress/max)*/
+	private ColorGenerator mReachedColorGenerator;
+
+	private ColorGenerator mTextColorGenerator;
+
+	private TextGenerator mTextGenerator;
 
 	public HorizontalProgressBarWithNumber(Context context, AttributeSet attrs)
 	{
@@ -173,8 +180,9 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 		boolean noNeedBg = false;
 		float radio = getProgress() * 1.0f / getMax();
 		float progressPosX = (int) (mRealWidth * radio);
-		String text = getProgress() + "%";
-		// mPaint.getTextBounds(text, 0, text.length(), mTextBound);
+		String text = generateText();
+//		String text = ;
+
 
 		float textWidth = mPaint.measureText(text);
 		float textHeight = (mPaint.descent() + mPaint.ascent()) / 2;
@@ -189,7 +197,7 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 		float endX = progressPosX - mTextOffset / 2;
 		if (endX > 0)
 		{
-			mPaint.setColor(mReachedBarColor);
+			mPaint.setColor(generateReachedColor());
 			mPaint.setStrokeWidth(mReachedProgressBarHeight);
 			canvas.drawLine(0, 0, endX, 0, mPaint);
 		}
@@ -197,22 +205,55 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 		// measure text bound
 		if (mIfDrawText)
 		{
-			mPaint.setColor(mTextColor);
-			canvas.drawText(text, progressPosX, -textHeight, mPaint);
+			mPaint.setColor(generateTextColor());
+//			canvas.drawText(text, progressPosX, -textHeight, mPaint);
+			canvas.drawText(text, mRealWidth-textWidth, -textHeight, mPaint);
+
 		}
 
 		// draw unreached bar
 		if (!noNeedBg)
 		{
-			float start = progressPosX + mTextOffset / 2 + textWidth;
+//			float start = progressPosX + mTextOffset / 2 + textWidth;
+			float start = progressPosX;
 			mPaint.setColor(mUnReachedBarColor);
 			mPaint.setStrokeWidth(mUnReachedProgressBarHeight);
-			canvas.drawLine(start, 0, mRealWidth, 0, mPaint);
+//			canvas.drawLine(start, 0, mRealWidth, 0, mPaint);
+			canvas.drawLine(start, 0, mRealWidth-textWidth, 0, mPaint);
+
 		}
 
 		canvas.restore();
 
 	}
+
+	private String generateText()
+	{
+		if(mTextGenerator != null)
+			return mTextGenerator.generateText(getProgress(), getMax());
+		else {
+			float radio = 1.0f * getProgress() / getMax();
+			int percent = (int)(radio*100);
+			return percent + "%";
+		}
+	}
+
+	private int generateReachedColor()
+	{
+		if(mReachedColorGenerator != null)
+			return mReachedColorGenerator.generateColor(1.0f * getProgress() / getMax());
+		else
+			return mReachedBarColor;
+	}
+
+	private int generateTextColor()
+	{
+		if(mTextColorGenerator != null)
+			return mTextColorGenerator.generateColor(1.0f * getProgress() / getMax());
+		else
+			return mTextColor;
+	}
+
 
 	/**
 	 * dp 2 px
@@ -238,4 +279,30 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 
 	}
 
+
+	public interface ColorGenerator
+	{
+		int generateColor(float radio);
+	}
+
+	public interface TextGenerator
+	{
+		String generateText(int progress, int max);
+	}
+
+
+	public void setReachedColorGenerator(ColorGenerator generator)
+	{
+		this.mReachedColorGenerator = generator;
+	}
+
+	public void setTextColorGenerator(ColorGenerator generator)
+	{
+		this.mTextColorGenerator = generator;
+	}
+
+	public void setTextGenerator(TextGenerator generator)
+	{
+		this.mTextGenerator = generator;
+	}
 }

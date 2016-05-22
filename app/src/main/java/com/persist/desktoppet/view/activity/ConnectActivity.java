@@ -73,8 +73,10 @@ public class ConnectActivity extends BaseActivity{
         setContentView(R.layout.activity_connect);
         mStub = (ViewStub) findViewById(R.id.content_connect_inflater);
 
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
+            actionBar.setTitle("结对");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -177,7 +179,6 @@ public class ConnectActivity extends BaseActivity{
             Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Check that there's actually something to send
         if (message.length() > 0) {
             //append header,TLV format
@@ -189,12 +190,9 @@ public class ConnectActivity extends BaseActivity{
             System.arraycopy(t, 0, send, 0, t.length);
             System.arraycopy(l, 0, send, t.length, l.length);
             System.arraycopy(v, 0, send, t.length+l.length, v.length);
-
             mChatService.write(send);
-
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
-//            mOutEditText.setText(mOutStringBuffer);
         }
     }
 

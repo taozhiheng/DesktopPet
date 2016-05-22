@@ -13,9 +13,19 @@ public interface IPetModel {
 
     void loadPet();
 
+    void updatePet(PetBean petBean);
+
     void savePet();
 
     PetBean getPet();
+
+    boolean hasIntimatePet();
+
+    PetBean getIntimatePet();
+
+    void setIntimatePet(PetBean pet);
+
+    void removeIntimatePet();
 
     void updatePetName(String name);
 
@@ -24,6 +34,21 @@ public interface IPetModel {
     void updatePetPhrase(String phrase);
 
     void updatePetEmotion(int emotion);
+
+    void increasePetPower(int power);
+
+    void decreasePetPower(int power);
+
+
+    void increaseIntimatePetExperience(int increase);
+
+    void updateIntimatePetEmotion(int emotion);
+
+
+    void increaseIntimatePetPower(int power);
+
+    void decreaseIntimatePetPower(int power);
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.persist.desktoppet.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -45,11 +46,7 @@ public class CreateActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        setTitle(getResources().getString(R.string.title_create));
 
         mName = (EditText) findViewById(R.id.create_name);
         mPhrase = (EditText) findViewById(R.id.create_phrase);
@@ -104,17 +101,7 @@ public class CreateActivity extends BaseActivity {
         pet.setSex(mSex);
         IPetModel petModel = PetApplication.getPetModel(this);
         petModel.createPet(pet);
-        finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-        {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        startActivity(new Intent(this, DisplayActivity.class));
     }
 
 

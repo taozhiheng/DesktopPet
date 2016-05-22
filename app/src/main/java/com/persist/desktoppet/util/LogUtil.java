@@ -9,9 +9,9 @@ public class LogUtil{
 
     private static boolean showLog = true;
 
-    private LogUtil()
+    private static void showLog(boolean show)
     {
-
+        showLog = show;
     }
 
     public static int v(String tag, String msg)

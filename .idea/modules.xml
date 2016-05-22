@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DesktopPet.iml" filepath="$PROJECT_DIR$/DesktopPet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SwipeBackLayout/SwipeBackLayout.iml" filepath="$PROJECT_DIR$/SwipeBackLayout/SwipeBackLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gitview/gitview.iml" filepath="$PROJECT_DIR$/gitview/gitview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gifview/gifview.iml" filepath="$PROJECT_DIR$/gifview/gifview.iml" />
     </modules>
   </component>
 </project>

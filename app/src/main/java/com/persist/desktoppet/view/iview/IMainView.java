@@ -15,11 +15,4 @@ public interface IMainView {
 
     void loadPet(PetBean pet);
 
-    void editPetName(String name);
-
-    void editPetPhrase(String phrase);
-
-    void editConfig();
-
-    void startBluetooth();
 }

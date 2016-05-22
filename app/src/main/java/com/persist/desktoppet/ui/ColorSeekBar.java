@@ -54,14 +54,14 @@ public class ColorSeekBar extends SeekBar implements SeekBar.OnSeekBarChangeList
         LinearGradient colorGradient = new LinearGradient(0.f, 0.f,
                 this.getMeasuredWidth(), //- this.getThumb().getIntrinsicWidth(),
                 0.f,
-                new int[]{0xFF000000, 0xFF0000FF, 0xFF00FF00, 0xFF00FFFF,
-                        0xFFFF0000, 0xFFFF00FF, 0xFFFFFF00, 0xFFFFFFFF},
+                new int[]{0xFFDC143C, 0xFFDC413C, 0xFFFFFF00,
+                        0xFFFFFF00, 0xFF00FF7F, 0xFF00FF7F},
                 null, Shader.TileMode.CLAMP
         );
         ShapeDrawable shape = new ShapeDrawable(new RectShape());
         shape.getPaint().setShader(colorGradient);
         this.setProgressDrawable(shape);
-        this.setMax(256 * 7 - 1);
+//        this.setMax(256 * 7 - 1);
     }
 
     /**

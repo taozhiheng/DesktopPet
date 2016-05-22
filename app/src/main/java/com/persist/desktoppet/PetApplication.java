@@ -10,6 +10,7 @@ import com.persist.desktoppet.model.impl.ConfigModelImpl;
 import com.persist.desktoppet.model.imodel.IConfigModel;
 import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.model.impl.PetModelImpl;
+import com.persist.desktoppet.util.LogUtil;
 
 import java.util.List;
 
@@ -56,11 +57,15 @@ public class PetApplication extends Application {
     }
 
     public static boolean isServiceRunning(Context context, String serviceClassName){
+
+
+
         final ActivityManager activityManager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
         final List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE); //这个value取任意大于1的值，但返回的列表大小可能比这个值小。
 
+
         for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
-//            LogUtil.d(TAG, runningServiceInfo.service.getClassName());
+            LogUtil.d(TAG, runningServiceInfo.service.getClassName());
             if (runningServiceInfo.service.getClassName().equals(serviceClassName))
             {
                 return true;

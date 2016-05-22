@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -66,7 +67,7 @@ public class PetView extends GifView {
 
     public interface OnMoveListener
     {
-        void onMove(int dx, int dy);
+        void onMove(int newX, int newY);
     }
 
     public interface OnDoubleClickListener
@@ -166,9 +167,9 @@ public class PetView extends GifView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-        setMeasuredDimension(width, height*3/2);
+//        int width = getMeasuredWidth()/2;
+//        int height = getMeasuredHeight()/2;
+//        setMeasuredDimension(width, height*3/2);
     }
 
 
@@ -184,18 +185,17 @@ public class PetView extends GifView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
         super.onDraw(canvas);
 
-        if(mCloseDrawable != null)
-            mCloseDrawable.draw(canvas);
-
-        Paint.FontMetrics metrics = mPaint.getFontMetrics();
-        int baseOffset = (int)(metrics.top+metrics.bottom)/2;
-        if(mName != null)
-            canvas.drawText(mName, 0, getHeight()/12-baseOffset, mPaint);
-        if(mMessage != null)
-            canvas.drawText(mMessage, 0, getHeight()*11/12-baseOffset, mPaint);
+//        if(mCloseDrawable != null)
+//            mCloseDrawable.draw(canvas);
+//
+//        Paint.FontMetrics metrics = mPaint.getFontMetrics();
+//        int baseOffset = (int)(metrics.top+metrics.bottom)/2;
+//        if(mName != null)
+//            canvas.drawText(mName, 0, getHeight()/12-baseOffset, mPaint);
+//        if(mMessage != null)
+//            canvas.drawText(mMessage, 0, getHeight()*11/12-baseOffset, mPaint);
     }
 
     @Override
@@ -240,12 +240,6 @@ public class PetView extends GifView {
                 newX = mScreenWidth - getWidth();
             mOnMoveListener.onMove(newX, (int)(y - startY));
         }
-    }
-
-
-    @Override
-    public void setOnScrollChangeListener(OnScrollChangeListener l) {
-        super.setOnScrollChangeListener(l);
     }
 
 

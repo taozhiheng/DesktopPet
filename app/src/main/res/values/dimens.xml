@@ -3,4 +3,12 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name='item_margin'>16dp</dimen>
+
+    <dimen name="cardRadius">5dp</dimen>
+
+    <dimen name="cardPadding">8dp</dimen>
+
+    <dimen name="device_name_size">25sp</dimen>
+    <dimen name="device_address_size">18sp</dimen>
+    <dimen name="text_padding">5dp</dimen>
 </resources>

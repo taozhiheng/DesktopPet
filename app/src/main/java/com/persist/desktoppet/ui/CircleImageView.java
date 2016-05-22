@@ -15,7 +15,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.hustunique.myapplication.R;
+import com.persist.desktoppet.R;
+
 
 public class CircleImageView extends ImageView {
 

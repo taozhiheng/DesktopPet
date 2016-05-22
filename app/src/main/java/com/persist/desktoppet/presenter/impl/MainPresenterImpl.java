@@ -44,30 +44,5 @@ public class MainPresenterImpl implements IMainPresenter {
         LogUtil.d(TAG, mPetModel.toString()+"-"+mPetModel.getPet().getName());
     }
 
-    @Override
-    public void savePet() {
-        mPetModel.savePet();
-    }
 
-    @Override
-    public void editPetName(String name) {
-        mPetModel.updatePetName(name);
-        mMainView.editPetName(name);
-    }
-
-    @Override
-    public void editPetPhrase(String phrase) {
-        mPetModel.updatePetPhrase(phrase);
-        mMainView.editPetPhrase(phrase);
-    }
-
-    @Override
-    public void editConfig() {
-        mMainView.editConfig();
-    }
-
-    @Override
-    public void startBluetooth() {
-        mMainView.startBluetooth();
-    }
 }

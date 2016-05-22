@@ -44,6 +44,7 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
+            actionBar.setTitle("设置");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 

@@ -47,7 +47,25 @@ public class Const {
     public final static String KEY_PET_EXPERIENCE = "DesktopPet_key_pet_experience";
     public final static String KEY_PET_PHRASE = "DesktopPet_key_pet_phrase";
     public final static String KEY_PET_EMOTION = "DesktopPet_key_pet_emotion";
+    public final static String KEY_PET_ID = "DesktopPet_key_pet_id";
+    public final static String KEY_PET_ALONE = "DesktopPet_key_pet_alone";
+    public final static String KEY_PET_POWER = "DesktopPet_key_pet_power";
 
+    public final static String KEY_INTIMATE_PET_NAME = "DesktopPet_key_intimate_pet_name";
+    public final static String KEY_INTIMATE_PET_AGE = "DesktopPet_key_intimate_pet_age";
+    public final static String KEY_INTIMATE_PET_TYPE = "DesktopPet_key_intimate_pet_type";
+    public final static String KEY_INTIMATE_PET_SEX = "DesktopPet_key_intimate_pet_sex";
+    public final static String KEY_INTIMATE_PET_LEVEL = "DesktopPet_key_intimate_pet_level";
+    public final static String KEY_INTIMATE_PET_EXPERIENCE = "DesktopPet_key_intimate_pet_experience";
+    public final static String KEY_INTIMATE_PET_PHRASE = "DesktopPet_key_intimate_pet_phrase";
+    public final static String KEY_INTIMATE_PET_EMOTION = "DesktopPet_key_intimate_pet_emotion";
+    public final static String KEY_INTIMATE_PET_ID = "DesktopPet_key_intimate_pet_id";
+    public final static String KEY_INTIMATE_PET_ALONE = "DesktopPet_key_intimate_pet_alone";
+    public final static String KEY_INTIMATE_PET_POWER = "DesktopPet_key_intimate_pet_power";
+
+
+
+    public final static String KEY_IS_FIRST = "DesktopPet_key_is_first";
 
     public final static String KEY_THEME = "DesktopPet_key_theme";
     public final static String KEY_RING = "DesktopPet_key_ring";
@@ -63,6 +81,8 @@ public class Const {
     public final static int[] ICONS = {R.mipmap.cat, R.mipmap.dog, R.mipmap.bird, R.mipmap.bear,
             R.mipmap.penguin, R.mipmap.tiger, R.mipmap.lion, R.mipmap.rabbit, R.mipmap.rabbit};
 
+    public final static int[] PET_ICONS = {R.mipmap.wash, R.mipmap.feed};
+
     public static final UUID BLUETOOTH_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
     public static final String BLUETOOTH_NAME = "DesktopPet_Bluetooth";
 
@@ -75,6 +95,10 @@ public class Const {
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
+
+    public static final int COLOR_WEAK = 0xffdc143c;
+    public static final int COLOR_NORMAL = 0xffffff00;
+    public static final int COLOR_HEALTHY = 0xff00ff7f;
 
 
 }

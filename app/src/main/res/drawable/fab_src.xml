@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true"
-        android:drawable="@mipmap/animals_dark"/>
+        android:drawable="@mipmap/ic_stop"/>
     <item android:state_selected="false"
-        android:drawable="@mipmap/animals"/>
+        android:drawable="@mipmap/ic_play"/>
 </selector>

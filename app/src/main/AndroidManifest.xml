@@ -9,32 +9,34 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_bear"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name=".view.activity.DisplayActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+
         <activity android:name=".view.activity.ConfigActivity"/>
         <activity android:name=".view.activity.CreateActivity"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".bluetooth.ConnectActivity"/>
-        <activity android:name=".bluetooth.DeviceListActivity"/>
+        <activity android:name=".view.activity.ConnectActivity"/>
+        <activity android:name=".view.activity.DeviceListActivity"/>
+        <activity android:name=".view.activity.EditActivity"/>
+        <activity android:name=".view.activity.FeedActivity"/>
 
         <service
             android:name=".service.DisplayService"
-            android:exported="true"
-            android:process=":remote">
+            android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="com.persist.desktoppet.service.DisplayService"/>

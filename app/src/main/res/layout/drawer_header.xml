@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/header"
+    android:layout_width="273dp"
 
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+        <com.persist.desktoppet.ui.CircleImageView
+            android:id="@+id/drawer_image"
+            android:src="@mipmap/ic_bear"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            app:border_width="6dp"
+            app:border_color="@color/lightPink"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/drawer_name"
+            android:layout_toRightOf="@id/drawer_image"
+            android:layout_centerVertical="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:gravity="center_horizontal|top"
+            android:singleLine="true"/>
+        <TextView
+            android:textSize="11sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/drawer_age"
+            android:layout_below="@id/drawer_name"
+            android:layout_toRightOf="@id/drawer_image"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+             />
+        <TextView
+            android:id="@+id/drawer_phrase"
+            android:layout_below="@id/drawer_image"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="6dp"-->
+        <!--android:background="@color/divider"-->
+        <!--/>-->
 </LinearLayout>

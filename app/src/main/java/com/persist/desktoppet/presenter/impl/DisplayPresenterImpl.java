@@ -69,4 +69,14 @@ public class DisplayPresenterImpl implements IDisplayPresenter {
     public void showMessage(String msg, long duration) {
         mDisplayView.showMessage(msg, duration);
     }
+
+    @Override
+    public void startRun() {
+        mDisplayView.startRun();;
+    }
+
+    @Override
+    public void stopRun() {
+        mDisplayView.stopRun();
+    }
 }

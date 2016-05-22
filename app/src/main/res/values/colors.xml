@@ -11,4 +11,8 @@
     <color name="green">#7fffd4</color>
     <color name="pink">#ff69b4</color>
     <color name="blue">#00bfff</color>
+
+    <color name="weak">#dc143c</color>
+    <color name="normal">#ffff00</color>
+    <color name="healthy">#00ff7f</color>
 </resources>

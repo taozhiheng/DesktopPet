@@ -13,4 +13,6 @@ public interface IDisplayPresenter {
     void switchEmotion(int emotion);
     void rename(String name);
     void showMessage(String msg, long duration);
+    void startRun();
+    void stopRun();
 }

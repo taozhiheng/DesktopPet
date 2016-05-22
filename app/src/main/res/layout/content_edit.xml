@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            style="@style/PetAttrTitleStyle"
+            android:id="@+id/test"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:fadingEdge="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -21,14 +32,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name" />
-            <TextView
+            <EditText
                 style="@style/PetAttrContentStyle"
+                android:background="@null"
+                android:lines="1"
                 android:id="@+id/pet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <View style="@style/DividerStyle" />
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -59,9 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <View style="@style/DividerStyle" android:visibility="gone"/>
+        <View style="@style/DividerStyle"/>
         <LinearLayout
-            android:visibility="gone"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -77,22 +90,23 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <View style="@style/DividerStyle" />
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<TextView-->
+                <!--style="@style/PetAttrTitleStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/level" />-->
+            <!--<TextView-->
+                <!--style="@style/PetAttrContentStyle"-->
+                <!--android:id="@+id/pet_level"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--</LinearLayout>-->
+        <!--<View style="@style/DividerStyle" />-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/PetAttrTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level" />
-            <TextView
-                style="@style/PetAttrContentStyle"
-                android:id="@+id/pet_level"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <View style="@style/DividerStyle" />
-        <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -105,11 +119,12 @@
                 android:layout_gravity="center_vertical"
                 android:id="@+id/pet_power"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
         <View style="@style/DividerStyle" />
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -117,12 +132,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/phrase" />
-            <TextView
+            <EditText
                 style="@style/PetAttrContentStyle"
+                android:background="@null"
                 android:id="@+id/pet_phrase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
