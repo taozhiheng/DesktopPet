@@ -8,12 +8,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.MainActivity">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/PetAttrTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+            <TextView
+                style="@style/PetAttrContentStyle"
+                android:id="@+id/pet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View style="@style/DividerStyle" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -27,8 +42,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <View style="@style/DividerStyle" />
+        <View style="@style/DividerStyle" android:visibility="gone"/>
         <LinearLayout
+            android:visibility="gone"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -43,8 +59,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <View style="@style/DividerStyle" />
+        <View style="@style/DividerStyle" android:visibility="gone"/>
         <LinearLayout
+            android:visibility="gone"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -61,7 +78,6 @@
         </LinearLayout>
         <View style="@style/DividerStyle" />
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -77,7 +93,23 @@
         </LinearLayout>
         <View style="@style/DividerStyle" />
         <LinearLayout
-            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/PetAttrTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/power" />
+            <com.persist.desktoppet.ui.HorizontalProgressBarWithNumber
+                style="@style/PetAttrContentStyle"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/pet_power"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <View style="@style/DividerStyle" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -91,13 +123,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <Button
-            android:id="@+id/pet_change"
-            android:layout_marginTop="@dimen/item_margin"
-            android:text="@string/change_pet"
-            android:background="@drawable/alert_btn_bg"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
