@@ -208,6 +208,7 @@ public class BluetoothChatService {
         Message msg = mHandler.obtainMessage(Const.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
         bundle.putString(Const.DEVICE_NAME, device.getName());
+        bundle.putString(Const.DEVICE_ADDRESS, device.getAddress());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -485,7 +486,6 @@ public class BluetoothChatService {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
-
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(Const.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();

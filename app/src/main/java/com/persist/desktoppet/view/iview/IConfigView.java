@@ -13,7 +13,7 @@ public interface IConfigView {
 
     void resetTheme(int theme);
 
-    void resetRing(boolean ring);
+    void resetReceiveConfig(boolean receive);
 
-    void resetVibrate(boolean vibrate);
+    void resetRingConfig(boolean ring);
 }

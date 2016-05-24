@@ -6,9 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
@@ -25,7 +23,7 @@ import com.persist.desktoppet.view.iview.IConfigView;
  */
 public class ConfigActivity extends BaseActivity implements IConfigView {
 
-    private TextView mTheme;
+//    private TextView mTheme;
     private SwitchCompat mRing;
     private SwitchCompat mVibrate;
     private AlertDialog mDialog;
@@ -38,7 +36,7 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
-        mTheme = (TextView) findViewById(R.id.config_theme);
+//        mTheme = (TextView) findViewById(R.id.config_theme);
         mRing = (SwitchCompat) findViewById(R.id.config_ring);
         mVibrate = (SwitchCompat) findViewById(R.id.config_vibrate);
 
@@ -48,24 +46,24 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mTheme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choseTheme();
-            }
-        });
+//        mTheme.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                choseTheme();
+//            }
+//        });
 
         mRing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mConfigPresenter.resetRingConfig(isChecked);
+                mConfigPresenter.resetReceiveConfig(isChecked);
             }
         });
 
         mVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mConfigPresenter.resetVibrateConfig(isChecked);
+                mConfigPresenter.resetRingConfig(isChecked);
             }
         });
 
@@ -111,7 +109,7 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
     @Override
     public void loadConfig(ConfigBean config) {
         mId = config.getThemeConfig();
-        mTheme.setText(getResources().getStringArray(R.array.theme_array)[mId]);
+//        mTheme.setText(getResources().getStringArray(R.array.theme_array)[mId]);
         mRing.setChecked(config.getRingConfig());
         mVibrate.setChecked(config.getVibrateConfig());
     }
@@ -119,16 +117,16 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
     @Override
     public void resetTheme(int theme) {
         mId = theme;
-        mTheme.setText(getResources().getStringArray(R.array.theme_array)[theme]);
+//        mTheme.setText(getResources().getStringArray(R.array.theme_array)[theme]);
     }
 
     @Override
-    public void resetRing(boolean ring) {
+    public void resetReceiveConfig(boolean receive) {
         //change service config
     }
 
     @Override
-    public void resetVibrate(boolean vibrate) {
+    public void resetRingConfig(boolean ring) {
         //change service config
     }
 }

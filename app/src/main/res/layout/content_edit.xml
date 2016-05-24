@@ -10,19 +10,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            style="@style/PetAttrTitleStyle"
-            android:id="@+id/test"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:fadingEdge="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+        <ImageView
+            android:id="@+id/pet_sex"
+            android:src="@mipmap/ic_pet_boy"
+            android:layout_margin="@dimen/item_margin"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <LinearLayout
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -36,6 +30,7 @@
                 style="@style/PetAttrContentStyle"
                 android:background="@null"
                 android:lines="1"
+                android:singleLine="true"
                 android:id="@+id/pet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -74,22 +69,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <View style="@style/DividerStyle"/>
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/PetAttrTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sex" />
-            <TextView
-                style="@style/PetAttrContentStyle"
-                android:id="@+id/pet_sex"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <View style="@style/DividerStyle" />
+
         <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content">-->
@@ -136,6 +116,7 @@
                 style="@style/PetAttrContentStyle"
                 android:background="@null"
                 android:id="@+id/pet_phrase"
+                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

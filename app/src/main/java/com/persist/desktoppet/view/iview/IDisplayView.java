@@ -6,13 +6,14 @@ package com.persist.desktoppet.view.iview;
  * display view interface
  */
 public interface IDisplayView {
-    boolean createPetWindow();
+    boolean createPetWindow(int startX, int startY, boolean sex);
     boolean destroyPetWindow();
     boolean dragPetWindow(int newX, int newY);
     boolean switchVisibility(boolean isShow);
     boolean switchEmotion(int emotion);
     boolean rename(String name);
     boolean showMessage(String msg, long duration);
+    void switchMovie(int index);
     void startRun();
     void stopRun();
 }

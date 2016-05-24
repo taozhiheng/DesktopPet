@@ -23,6 +23,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -124,7 +125,6 @@ public class DeviceListActivity extends BaseActivity {
         mOtherDeviceRecycler.setLayoutManager(new LinearLayoutManager(this));
         mPairdDeviceRecycler.setAdapter(mPairdDeviceAdapter);
         mOtherDeviceRecycler.setAdapter(mOtherDeviceAdapter);
-
     }
 
     private void initBoundedDevices()

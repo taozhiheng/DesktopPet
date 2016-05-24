@@ -1,5 +1,7 @@
 package com.persist.desktoppet.presenter.impl;
 
+import android.graphics.Point;
+
 import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.presenter.ipresenter.IDisplayPresenter;
 import com.persist.desktoppet.util.LogUtil;
@@ -25,18 +27,29 @@ public class DisplayPresenterImpl implements IDisplayPresenter {
         this.mDisplayView = displayView;
     }
 
+    public IPetModel getPetModel()
+    {
+        return mPetModel;
+    }
+
+    public IDisplayView getDisplayView()
+    {
+        return mDisplayView;
+    }
 
     @Override
     public void createPet() {
         //model do something
-        mDisplayView.createPetWindow();
         mPetModel.loadPet();
+        Point point = mPetModel.getLastPos();
+        mDisplayView.createPetWindow(point.x, point.y, mPetModel.getPet().getSex());
         mDisplayView.rename(mPetModel.getPet().getName());
         LogUtil.d(TAG, mPetModel.toString()+"-"+mPetModel.getPet().getName());
     }
 
     @Override
-    public void destroyPet() {
+    public void destroyPet(int lastX, int lastY) {
+        mPetModel.setLastPos(lastX, lastY);
         mDisplayView.destroyPetWindow();
     }
 
@@ -58,6 +71,11 @@ public class DisplayPresenterImpl implements IDisplayPresenter {
     @Override
     public void switchEmotion(int emotion) {
         mDisplayView.switchEmotion(emotion);
+    }
+
+    @Override
+    public void switchMovie(int index) {
+        mDisplayView.switchMovie(index);
     }
 
     @Override

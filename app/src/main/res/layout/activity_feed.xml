@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@mipmap/ic_feed_bg"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--<LinearLayout-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TextView-->
+            <!--android:id="@+id/feed_title"-->
+            <!--android:text="@string/pet_power"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="25sp"-->
+            <!--android:layout_marginTop="@dimen/text_margin"-->
+            <!--android:textColor="@color/yellow"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+        <com.persist.desktoppet.ui.CircleProgressBar
+            android:id="@+id/feed_power"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            app:circle_progress_complete_color="@color/green"
+            android:layout_gravity="center_horizontal"
+            app:circle_progress_maxprogress="100"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/feed_desk"
+        android:src="@mipmap/ic_desk"
+        android:layout_marginTop="-75dp"
+        android:layout_below="@+id/feed_cake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/feed_banana"
+        android:src="@drawable/src_feed_banana"
+        android:layout_toRightOf="@+id/feed_cake"
+        android:layout_marginLeft="-16dp"
+        android:layout_alignBottom="@+id/feed_cake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/feed_cake"
+        android:src="@drawable/src_feed_cake"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/feed_apple"
+        android:src="@drawable/src_feed_apple"
+        android:layout_toLeftOf="@+id/feed_cake"
+        android:layout_marginRight="-16dp"
+        android:layout_alignBottom="@+id/feed_cake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--</LinearLayout>-->
+</RelativeLayout>

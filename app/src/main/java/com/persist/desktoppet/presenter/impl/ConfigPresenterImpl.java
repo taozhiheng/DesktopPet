@@ -35,14 +35,14 @@ public class ConfigPresenterImpl implements IConfigPresenter {
     }
 
     @Override
-    public void resetRingConfig(boolean ring) {
-        mConfigModel.resetRingConfig(ring);
-        mConfigView.resetRing(ring);
+    public void resetReceiveConfig(boolean receive) {
+        mConfigModel.resetReceiveConfig(receive);
+        mConfigView.resetReceiveConfig(receive);
     }
 
     @Override
-    public void resetVibrateConfig(boolean vibrate) {
-        mConfigModel.resetVibrateConfig(vibrate);
-        mConfigModel.resetVibrateConfig(vibrate);
+    public void resetRingConfig(boolean ring) {
+        mConfigModel.resetRingConfig(ring);
+        mConfigView.resetRingConfig(ring);
     }
 }

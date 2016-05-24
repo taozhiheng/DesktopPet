@@ -3,6 +3,7 @@ package com.persist.desktoppet.ui;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -59,6 +60,8 @@ public class SlidingLayout extends HorizontalScrollView{
 
     private Rect mContentRect;
 
+    private int mLastScrollX;
+
     public SlidingLayout(Context context)
     {
         this(context, null, 0);
@@ -81,6 +84,7 @@ public class SlidingLayout extends HorizontalScrollView{
         mAutoScale = a.getBoolean(R.styleable.SlidingLayout_autoScale, true);
         a.recycle();
         mContentRect = new Rect();
+        mState = STATE_IDLE;
     }
 
     @Override
@@ -143,6 +147,7 @@ public class SlidingLayout extends HorizontalScrollView{
         else
             mRightWidth = 0;
         mHeight = mContent.getHeight();
+        mLastScrollX = getScrollX();
         Log.d(TAG, "leftW="+mLeftWidth+", rightW="+mRightWidth);
     }
 
@@ -160,7 +165,9 @@ public class SlidingLayout extends HorizontalScrollView{
             once = true;
             mContentRect.set(0, 0, mContent.getWidth(), mContent.getHeight());
         }
-        Log.d(TAG, "onLayout");
+        else
+            this.scrollTo(mLastScrollX, 0);
+        Log.d(TAG, "onLayout, changed:"+changed+", state="+mState);
     }
 
 
@@ -226,6 +233,14 @@ public class SlidingLayout extends HorizontalScrollView{
         return super.onTouchEvent(ev);
     }
 
+    @Override
+    public void scrollTo(int x, int y) {
+        super.scrollTo(x, y);
+        Log.d(TAG, "scrollTo: x="+x);
+    }
+
+
+
     /**
      * reset the child view's scale while scrolling if {@link #mAutoScale} is true
      *
@@ -234,7 +249,9 @@ public class SlidingLayout extends HorizontalScrollView{
     protected void onScrollChanged(int l, int t, int oldl, int oldt)
     {
         super.onScrollChanged(l, t, oldl, oldt);
-        Log.d(TAG, "onScrollChanged:"+l+" x="+mContent.getScrollX()+",width="+mContent.getWidth());
+        Log.d(TAG, "onScrollChanged:"+l+" x="+getScrollX()+",width="+mContent.getWidth()
+        +", state="+mState);
+
 
         scroll = true;
         if(l == 0)
@@ -254,7 +271,7 @@ public class SlidingLayout extends HorizontalScrollView{
             mContentRect.set(left, 0, right, mHeight);
             return;
         }
-        if(l < mLeftWidth && mLeft != null) {
+        if(l <= mLeftWidth && mLeft != null) {
             float scale = l * 1.0f / mLeftWidth;
             float leftScale = 1 - 0.3f * scale;
             float rightScale = 0.8f + scale * 0.2f;
@@ -277,7 +294,7 @@ public class SlidingLayout extends HorizontalScrollView{
             mContentRect.set(left, top, right, bottom);
 
         }
-        else if(l > mLeftWidth && mRight != null)
+        else if(l >= mLeftWidth && mRight != null)
         {
             float scale = (l-mLeftWidth) * 1.0f / mRightWidth;
             float rightScale = 0.7f + 0.3f * scale;
@@ -300,8 +317,6 @@ public class SlidingLayout extends HorizontalScrollView{
             int bottom = (int)(mHeight*(1+leftScale)/2);
             mContentRect.set(left, top, right, bottom);
         }
-
-
     }
 
     /**
@@ -321,15 +336,15 @@ public class SlidingLayout extends HorizontalScrollView{
      * */
     private void closeDrawer()
     {
-//        if(mState == STATE_IDLE)
-//            return;
+        if(mState == STATE_IDLE)
+            return;
         this.smoothScrollTo(mLeftWidth, 0);
         if(mContent.getScaleX() < 1) {
             mContent.setScaleX(1);
             mContent.setScaleY(1);
         }
         mState = STATE_IDLE;
-        Log.d(TAG, "closeDrawer:"+mContent.getScaleX());
+        Log.d(TAG, "closeDrawer:"+mContent.getScaleX()+", scrollX="+getScrollX());
     }
 
     /**
@@ -357,6 +372,7 @@ public class SlidingLayout extends HorizontalScrollView{
      */
     public void changeDrawerState(int state)
     {
+        Log.d(TAG, "change drawer state:"+state);
         switch (state)
         {
             case STATE_IDLE_LEFT:
@@ -373,4 +389,5 @@ public class SlidingLayout extends HorizontalScrollView{
                 throw new IllegalArgumentException("The state value must be one of STATE_IDLE_LEFT, STATE_IDLE, STATE_IDLE_RIGHT!");
         }
     }
+
 }

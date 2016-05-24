@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +22,6 @@ import com.persist.desktoppet.bluetooth.BluetoothChatService;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
 import com.persist.desktoppet.util.NumberBytesUtil;
-
-import java.util.Locale;
 
 /**
  * Created by taozhiheng on 16-4-17.
@@ -63,7 +60,7 @@ public class ConnectActivity extends BaseActivity{
      */
     private BluetoothChatService mChatService = null;
 
-    private ViewStub mStub;
+    private TextView mStateText;
     private Button mConnect;
 
 
@@ -71,8 +68,8 @@ public class ConnectActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
-        mStub = (ViewStub) findViewById(R.id.content_connect_inflater);
 
+        mStateText = (TextView) findViewById(R.id.connect_state);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
@@ -86,7 +83,6 @@ public class ConnectActivity extends BaseActivity{
             Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             finish();
         }
-
     }
 
 
@@ -104,11 +100,22 @@ public class ConnectActivity extends BaseActivity{
         }
     }
 
+    /**
+     * Set up the UI and background operations for chat.
+     */
+    private void setupChat() {
+        LogUtil.d(TAG, "setupChat()");
+        mChatService = new BluetoothChatService(this, mHandler);
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+    }
 
+    /**
+     * start bluetooth accept threads
+     * */
     @Override
     public void onResume() {
         super.onResume();
-
         // Performing this check in onResume() covers the case in which BT was
         // not enabled during onStart(), so we were paused to enable it...
         // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
@@ -121,6 +128,9 @@ public class ConnectActivity extends BaseActivity{
         }
     }
 
+    /**
+     * cancel bluetooth threads
+     * */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -129,16 +139,6 @@ public class ConnectActivity extends BaseActivity{
         }
     }
 
-
-    /**
-     * Set up the UI and background operations for chat.
-     */
-    private void setupChat() {
-        LogUtil.d(TAG, "setupChat()");
-        mChatService = new BluetoothChatService(this, mHandler);
-        // Initialize the buffer for outgoing messages
-        mOutStringBuffer = new StringBuffer("");
-    }
 
     /**
      * Makes this device discoverable.
@@ -153,7 +153,9 @@ public class ConnectActivity extends BaseActivity{
     }
 
     /**
-     * Establish connection with other divice
+     * start connect thread
+     *
+     * Establish connection with other device
      *
      * @param data   An {@link Intent} with {@link DeviceListActivity#EXTRA_DEVICE_ADDRESS} extra.
      * @param secure Socket Security type - Secure (true) , Insecure (false)
@@ -184,12 +186,12 @@ public class ConnectActivity extends BaseActivity{
             //append header,TLV format
             // Get the message bytes and tell the BluetoothChatService to write
             byte[] t = NumberBytesUtil.charToBytes(tag);
-            byte[] l = NumberBytesUtil.intToBytes(message.length()*2);
+//            byte[] l = NumberBytesUtil.intToBytes(message.length()*2);
             byte[] v = message.getBytes();
-            byte[] send = new byte[t.length+l.length+v.length];
+            byte[] send = new byte[t.length+v.length];
             System.arraycopy(t, 0, send, 0, t.length);
-            System.arraycopy(l, 0, send, t.length, l.length);
-            System.arraycopy(v, 0, send, t.length+l.length, v.length);
+//            System.arraycopy(l, 0, send, t.length, l.length);
+            System.arraycopy(v, 0, send, t.length, v.length);
             mChatService.write(send);
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
@@ -198,33 +200,8 @@ public class ConnectActivity extends BaseActivity{
 
 
     /**
-     * Updates the status on the action bar.
-     *
-     * @param resId a string resource ID
-     */
-    private void setStatus(int resId) {
-
-        final android.app.ActionBar actionBar = getActionBar();
-        if (null == actionBar) {
-            return;
-        }
-        actionBar.setSubtitle(resId);
-    }
-
-    /**
-     * Updates the status on the action bar.
-     *
-     * @param subTitle status
-     */
-    private void setStatus(CharSequence subTitle) {
-
-        final android.app.ActionBar actionBar = getActionBar();
-        if (null == actionBar) {
-            return;
-        }
-        actionBar.setSubtitle(subTitle);
-    }
-
+     * handle message
+     * */
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -233,6 +210,10 @@ public class ConnectActivity extends BaseActivity{
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
                             setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
+                            PetBean pet = PetApplication.getPetModel(ConnectActivity.this).getPet();
+                            sendMsg((char)0, PetApplication.getGson().toJson(pet));
+                            Toast.makeText(ConnectActivity.this, "Connected to "
+                                    + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                             break;
                         case BluetoothChatService.STATE_CONNECTING:
                             setStatus(R.string.title_connecting);
@@ -254,32 +235,15 @@ public class ConnectActivity extends BaseActivity{
                     switch (tag)
                     {
                         case 0://receive pet info
-                            String petInfo = new String(readBuf, 6, msg.arg1);
-                            LogUtil.d(TAG, petInfo);
+                            String petInfo = new String(readBuf).substring(1);
                             PetBean petBean = PetApplication.getGson().fromJson(petInfo, PetBean.class);
-                            View v = mStub.inflate();
-                            TextView t = (TextView) v.findViewById(R.id.connect_pet_name);
-                            t.setText(petBean.getName());
-                            t = (TextView) v.findViewById(R.id.connect_pet_age);
-                            t.setText(String.format(Locale.CHINA, "%d", petBean.getAge()));
-                            t = (TextView) v.findViewById(R.id.connect_pet_type);
-                            t.setText(getResources().getStringArray(R.array.type_array)[petBean.getType()]);
-                            t = (TextView) v.findViewById(R.id.connect_pet_sex);
-                            if(petBean.getSex())
-                                t.setText("雌");
-                            else
-                                t.setText("雄");
-                            t = (TextView) v.findViewById(R.id.connect_pet_level);
-                            t.setText(String.format(Locale.CHINA, "%d", petBean.getLevel()));
-                            t = (TextView) v.findViewById(R.id.connect_pet_phrase);
-                            t.setText(petBean.getPhrase());
-                            mConnect = (Button) v.findViewById(R.id.pet_connect);
+                            Log.d(TAG, petInfo);
                             break;
                         case 1://receive request for connect
                             LogUtil.d(TAG, "receive request");
                             break;
                         case 2://receive response about connection request
-                            char response = NumberBytesUtil.bytesToChar(readBuf, 6);
+                            char response = NumberBytesUtil.bytesToChar(readBuf, 2);
                             LogUtil.d(TAG, "receive response "+response);
                             //response ok
                             if(response == '1' && mConnect != null)
@@ -293,10 +257,6 @@ public class ConnectActivity extends BaseActivity{
                 case Const.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
                     mConnectedDeviceName = msg.getData().getString(Const.DEVICE_NAME);
-                    PetBean pet = PetApplication.getPetModel(ConnectActivity.this).getPet();
-                    sendMsg((char)0, PetApplication.getGson().toJson(pet));
-                    Toast.makeText(ConnectActivity.this, "Connected to "
-                            + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                     break;
                 case Const.MESSAGE_TOAST:
                     Toast.makeText(ConnectActivity.this, msg.getData().getString(Const.TOAST),
@@ -305,6 +265,28 @@ public class ConnectActivity extends BaseActivity{
             }
         }
     };
+
+
+
+    /**
+     * Updates the status on the action bar.
+     *
+     * @param resId a string resource ID
+     */
+    private void setStatus(int resId) {
+
+        mStateText.setText(resId);
+    }
+
+    /**
+     * Updates the status on the action bar.
+     *
+     * @param subTitle status
+     */
+    private void setStatus(CharSequence subTitle) {
+
+        mStateText.setText(subTitle);
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -337,7 +319,7 @@ public class ConnectActivity extends BaseActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_bluetooth, menu);
+        getMenuInflater().inflate(R.menu.menu_connect, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -357,7 +339,6 @@ public class ConnectActivity extends BaseActivity{
                 Intent intent = new Intent(this, DeviceListActivity.class);
                 startActivityForResult(intent, REQUEST_CONNECT_DEVICE_INSECURE);
                 return true;
-
             case R.id.discoverable:
                 // Ensure this device is discoverable by others
                 ensureDiscoverable();

@@ -18,17 +18,20 @@
 
     <item
         android:id="@+id/secure_connect_scan"
+        android:icon="@mipmap/ic_secure"
         app:showAsAction="ifRoom"
         android:title="@string/secure_connect"/>
 
     <item
         android:id="@+id/insecure_connect_scan"
-        app:showAsAction="never"
+        android:icon="@mipmap/ic_insecure"
+        app:showAsAction="ifRoom"
         android:title="@string/insecure_connect"/>
 
     <item
         android:id="@+id/discoverable"
-        app:showAsAction="never"
+        android:icon="@mipmap/bluetooth"
+        app:showAsAction="ifRoom"
         android:title="@string/discoverable"/>
 
 </menu>

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class EditActivity extends BaseActivity implements IEditView{
 
     private EditText mName;
     private TextView mAge;
-    private TextView mSex;
+    private ImageView mSex;
     private HorizontalProgressBarWithNumber mPower;
     private EditText mPhrase;
 
@@ -42,10 +43,6 @@ public class EditActivity extends BaseActivity implements IEditView{
 
     private IEditPresenter mPresenter;
 
-
-
-    private TextView test;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +50,9 @@ public class EditActivity extends BaseActivity implements IEditView{
 
         mName = (EditText) findViewById(R.id.pet_name);
         mAge = (TextView) findViewById(R.id.pet_age);
-        mSex = (TextView) findViewById(R.id.pet_sex);
+        mSex = (ImageView) findViewById(R.id.pet_sex);
         mPower = (HorizontalProgressBarWithNumber) findViewById(R.id.pet_power);
         mPhrase = (EditText) findViewById(R.id.pet_phrase);
-        test = (TextView) findViewById(R.id.test);
 
         initViewConfig();
 
@@ -96,15 +92,7 @@ public class EditActivity extends BaseActivity implements IEditView{
                     return Const.COLOR_NORMAL;
             }
         });
-        mPower.setTextGenerator(new HorizontalProgressBarWithNumber.TextGenerator() {
-            @Override
-            public String generateText(int progress, int max) {
-                return progress+"/"+max;
-            }
-        });
 
-        test.setSelected(true);
-        test.requestFocus();
         setEnable();
     }
 
@@ -176,15 +164,13 @@ public class EditActivity extends BaseActivity implements IEditView{
         mPet.setPhrase(petBean.getPhrase());
 
         mName.setText(petBean.getName());
-        mAge.setText(String.format(Locale.CHINA, "%d", petBean.getAge()));
+        mAge.setText(String.format(Locale.CHINA, "%d 天", petBean.getAge()));
+        int index = 0;
         if(petBean.getSex())
-            mSex.setText("雌");
-        else
-            mSex.setText("雄");
+            index = 1;
+        mSex.setImageResource(Const.PET_ICONS[index]);
         mPower.setProgress(petBean.getPower());
         mPhrase.setText(petBean.getPhrase());
-        test.setText(petBean.getPhrase()+"..."+petBean.getPhrase());
-        Log.d(TAG, "isFocused:"+test.isFocused());
     }
 
     @Override

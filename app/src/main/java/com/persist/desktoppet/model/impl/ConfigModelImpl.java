@@ -26,8 +26,8 @@ public class ConfigModelImpl implements IConfigModel {
     @Override
     public void loadConfig() {
         mConfig.setThemeConfig(mSp.getInt(Const.KEY_THEME, 0));
-        mConfig.setRingConfig(mSp.getBoolean(Const.KEY_RING, false));
-        mConfig.setVibrateConfig(mSp.getBoolean(Const.KEY_VIBRATE, false));
+        mConfig.setRingConfig(mSp.getBoolean(Const.KEY_RECEIVE, false));
+        mConfig.setVibrateConfig(mSp.getBoolean(Const.KEY_RING, false));
     }
 
     @Override
@@ -42,14 +42,14 @@ public class ConfigModelImpl implements IConfigModel {
     }
 
     @Override
-    public void resetRingConfig(boolean ring) {
-        mConfig.setRingConfig(ring);
-        mSp.edit().putBoolean(Const.KEY_RING, ring).apply();
+    public void resetReceiveConfig(boolean receive) {
+        mConfig.setRingConfig(receive);
+        mSp.edit().putBoolean(Const.KEY_RECEIVE, receive).apply();
     }
 
     @Override
-    public void resetVibrateConfig(boolean vibrate) {
-        mConfig.setVibrateConfig(vibrate);
-        mSp.edit().putBoolean(Const.KEY_VIBRATE, vibrate).apply();
+    public void resetRingConfig(boolean ring) {
+        mConfig.setVibrateConfig(ring);
+        mSp.edit().putBoolean(Const.KEY_RING, ring).apply();
     }
 }

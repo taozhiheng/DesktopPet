@@ -2,8 +2,11 @@ package com.persist.desktoppet.model.impl;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.util.Log;
 
 import com.persist.desktoppet.bean.PetBean;
+import com.persist.desktoppet.model.PowerChangedListener;
 import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.util.Const;
 
@@ -14,17 +17,28 @@ import com.persist.desktoppet.util.Const;
  */
 public class PetModelImpl implements IPetModel {
 
+    private final static String TAG = "PetModelImpl";
+
     private PetBean mPet;
     private SharedPreferences mSp;
     private PetBean mIntimatePet;
+    private Point mLastPos;
+
+    private PowerChangedListener mListener;
 
     public PetModelImpl(Context context)
     {
         mSp = context.getSharedPreferences(Const.PREF_PET, Context.MODE_PRIVATE);
         mPet = new PetBean();
         mIntimatePet = new PetBean();
+        mLastPos = new Point();
     }
 
+
+    public void setPowerChangedListener(PowerChangedListener l)
+    {
+        mListener = l;
+    }
 
     @Override
     public void createPet(PetBean petBean) {
@@ -51,6 +65,10 @@ public class PetModelImpl implements IPetModel {
         mPet.setId(mSp.getString(Const.KEY_PET_ID, null));
         mPet.setAlone(mSp.getBoolean(Const.KEY_PET_ALONE, true));
         mPet.setPower(mSp.getInt(Const.KEY_PET_POWER, 0));
+
+        mLastPos.x = mSp.getInt(Const.KEY_PET_LAST_X, 0);
+        mLastPos.y = mSp.getInt(Const.KEY_PET_LAST_Y, 0);
+
         if(!mPet.getAlone())
         {
             loadIntimatePet();
@@ -120,6 +138,21 @@ public class PetModelImpl implements IPetModel {
     @Override
     public PetBean getPet() {
         return mPet;
+    }
+
+    @Override
+    public Point getLastPos() {
+        return mLastPos;
+    }
+
+    @Override
+    public void setLastPos(int lastX, int lastY) {
+        mLastPos.x = lastX;
+        mLastPos.y = lastY;
+        SharedPreferences.Editor editor = mSp.edit();
+        editor.putInt(Const.KEY_PET_LAST_X, mLastPos.x);
+        editor.putInt(Const.KEY_PET_LAST_Y, mLastPos.y);
+        editor.apply();
     }
 
     @Override
@@ -202,18 +235,25 @@ public class PetModelImpl implements IPetModel {
 
     @Override
     public void increasePetPower(int power) {
+        int oldPower = mPet.getPower();
         mPet.increasePower(power);
         SharedPreferences.Editor editor = mSp.edit();
         editor.putInt(Const.KEY_PET_POWER, mPet.getPower());
         editor.apply();
+        if(mListener != null)
+            mListener.onPowerChanged(mPet.getPower(), oldPower);
+        Log.d(TAG, "increasePower:power="+power+", old="+oldPower+", now="+mPet.getPower());
     }
 
     @Override
     public void decreasePetPower(int power) {
+        int oldPower = mPet.getPower();
         mPet.decreasePower(power);
         SharedPreferences.Editor editor = mSp.edit();
         editor.putInt(Const.KEY_PET_POWER, mPet.getPower());
         editor.apply();
+        if(mListener != null)
+            mListener.onPowerChanged(mPet.getPower(), oldPower);
     }
 
     @Override

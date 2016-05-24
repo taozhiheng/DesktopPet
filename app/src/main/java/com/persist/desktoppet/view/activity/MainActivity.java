@@ -1,28 +1,24 @@
 package com.persist.desktoppet.view.activity;
 
-import android.app.ActivityManager;
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,35 +42,44 @@ import java.util.Locale;
  *
  * new launcher activity
  */
-public class DisplayActivity extends BaseActivity implements IMainView{
+public class MainActivity extends BaseActivity implements IMainView{
 
 
     private final static String TAG = "DisplayActivity";
     private IMainPresenter mMainPresenter;
 
     private SlidingLayout mSliding;
-    private CollapsingToolbarLayout mToolbarLayout;
-    private FloatingActionButton fab;
+    private int mLastSlidingState = SlidingLayout.STATE_IDLE;
 
     private ImageView mIcon;
     private TextView mName;
     private TextView mAge;
 
-//    private TextView mLevel;
     private HorizontalProgressBarWithNumber mPower;
     private TextView mPhrase;
 
-    private FloatingActionButton mFeed;
-    private FloatingActionButton mFind;
+
+    private NavigationView mDrawer;
+
+    private View mFeed;
+    private View mSwitch;
+    private View mFind;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            fab.setSelected(false);
+            int action = intent.getIntExtra(Const.KEY_RECEIVER_MAIN_ACTION, Const.RECEIVER_ACTION_DESTROY);
+            switch (action)
+            {
+                case Const.RECEIVER_ACTION_DESTROY:
+                    mSwitch.setSelected(false);
+                    break;
+                case Const.RECEIVER_ACTION_UPDATE:
+                    mPower.setProgress(intent.getIntExtra(Const.KEY_RECEIVER_MAIN_VALUE, 0));
+                    break;
+            }
         }
     };
-    private NavigationView mDrawer;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,17 +93,16 @@ public class DisplayActivity extends BaseActivity implements IMainView{
 
         mSliding = (SlidingLayout) findViewById(R.id.display_sliding);
         mDrawer = (NavigationView) findViewById(R.id.display_drawer);
-        mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        mPower = (HorizontalProgressBarWithNumber) findViewById(R.id.display_power);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        mFeed = (FloatingActionButton) findViewById(R.id.fab_feed);
-        mFind = (FloatingActionButton) findViewById(R.id.fab_find);
+
+        mFeed = findViewById(R.id.display_feed);
+        mSwitch = findViewById(R.id.display_switch);
+        mFind = findViewById(R.id.display_find);
 
         LinearLayout header = (LinearLayout) mDrawer.getHeaderView(0);
         mIcon = (ImageView) header.findViewById(R.id.drawer_image);
         mName = (TextView) header.findViewById(R.id.drawer_name);
         mAge = (TextView) header.findViewById(R.id.drawer_age);
-//        mLevel = (TextView) findViewById(R.id.pet_level);
+        mPower = (HorizontalProgressBarWithNumber) header.findViewById(R.id.drawer_power);
         mPhrase = (TextView) header.findViewById(R.id.drawer_phrase);
 
         initViewConfig();
@@ -110,11 +114,11 @@ public class DisplayActivity extends BaseActivity implements IMainView{
 
     private void initViewConfig()
     {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.logo);
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
+        }
 
         mPhrase.setSelected(true);
 
@@ -131,14 +135,6 @@ public class DisplayActivity extends BaseActivity implements IMainView{
                         break;
                     case R.id.drawer_jump:
                         Intent intent = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
-
-                        try {
-                            PackageInfo info = getPackageManager().getPackageInfo("com.tencent.mm", PackageManager.GET_ACTIVITIES);
-
-                        } catch (PackageManager.NameNotFoundException e) {
-                            e.printStackTrace();
-                        }
-
                         //com.tencent.mm.ui.LauncherUI
                         if(intent != null)
                             startActivity(intent);
@@ -155,10 +151,16 @@ public class DisplayActivity extends BaseActivity implements IMainView{
             }
         });
 
-        fab.setSelected(PetApplication.isServiceRunning(getApplicationContext(), Const.ACTION_DISPLAY_SERVICE));
-        fab.setOnClickListener(new View.OnClickListener() {
+        mSwitch.setSelected(PetApplication.isServiceRunning(getApplicationContext(), Const.ACTION_DISPLAY_SERVICE));
+        mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW}, 0);
+                    return;
+                }
                 if(PetApplication.isServiceRunning(getApplicationContext(), Const.ACTION_DISPLAY_SERVICE))
                 {
                     LogUtil.d(TAG, "service is running");
@@ -197,12 +199,7 @@ public class DisplayActivity extends BaseActivity implements IMainView{
                     return Const.COLOR_NORMAL;
             }
         });
-        mPower.setTextGenerator(new HorizontalProgressBarWithNumber.TextGenerator() {
-            @Override
-            public String generateText(int progress, int max) {
-                return progress+"/"+max;
-            }
-        });
+
 
         mFeed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,7 +221,16 @@ public class DisplayActivity extends BaseActivity implements IMainView{
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume, lastState="+mLastSlidingState+", state="+mSliding.getDrawerState());
         mMainPresenter.loadPet();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mLastSlidingState = mSliding.getDrawerState();
+        Log.d(TAG, "onStop, lastState="+mLastSlidingState);
     }
 
     @Override
@@ -249,6 +255,19 @@ public class DisplayActivity extends BaseActivity implements IMainView{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+            } else {
+                // Permission Denied
+                Toast.makeText(getBaseContext(), "授权失败,将无法显示桌面宠物", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -279,13 +298,6 @@ public class DisplayActivity extends BaseActivity implements IMainView{
         mName.setText(pet.getName());
         mAge.setText(String.format(Locale.CHINA, "%d 天", pet.getAge()));
 
-//        mType.setText(getResources().getStringArray(R.array.type_array)[pet.getType()]);
-//        if(pet.getSex())
-//            mSex.setText("雌");
-//        else
-//            mSex.setText("雄");
-
-//        mLevel.setText(String.format(Locale.CHINA, "%d", pet.getLevel()));
         mPower.setProgress(pet.getPower());
         mPhrase.setText(pet.getPhrase());
     }

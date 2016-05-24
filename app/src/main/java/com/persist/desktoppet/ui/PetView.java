@@ -47,7 +47,7 @@ public class PetView extends GifView {
     private GestureDetector mDetector;
 
 
-    private Drawable mCloseDrawable;
+//    private Drawable mCloseDrawable;
     private Rect mCloseRect;
     private Rect mPetRect;
 
@@ -102,7 +102,6 @@ public class PetView extends GifView {
         mScreenWidth = display.widthPixels;
         mCloseRect = new Rect();
         mPetRect = new Rect();
-        mCloseDrawable = getResources().getDrawable(R.mipmap.close, getContext().getTheme());
     }
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener
@@ -179,8 +178,8 @@ public class PetView extends GifView {
         super.onSizeChanged(w, h, oldw, oldh);
         mCloseRect.set(w-h/6, 0, w, h/6);
         mPetRect.set(0, h/6, w, h*5/6);
-        if(mCloseDrawable != null)
-            mCloseDrawable.setBounds(mCloseRect);
+//        if(mCloseDrawable != null)
+//            mCloseDrawable.setBounds(mCloseRect);
     }
 
     @Override

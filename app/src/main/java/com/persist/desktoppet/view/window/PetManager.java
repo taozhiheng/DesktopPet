@@ -3,13 +3,16 @@ package com.persist.desktoppet.view.window;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.R;
@@ -18,6 +21,8 @@ import com.persist.desktoppet.presenter.ipresenter.IDisplayPresenter;
 import com.persist.desktoppet.ui.PetView;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
+import com.persist.desktoppet.view.activity.FeedActivity;
+import com.persist.desktoppet.view.activity.MainActivity;
 import com.persist.desktoppet.view.iview.IDisplayView;
 
 import java.lang.ref.WeakReference;
@@ -37,6 +42,9 @@ public class PetManager implements IDisplayView {
     private IDisplayPresenter mDisplayPresenter;
     private int mScreenWidth;
     private int mScreenHeight;
+
+    private boolean mSex;
+    private int mMovieIndex = 0;
     /**
      * the handler to control the pet move randomly
      * */
@@ -44,7 +52,6 @@ public class PetManager implements IDisplayView {
     private AutoMoveRunnable mMoveRunnable;
 
     private boolean mIsAutoMove = false;
-
 
     private static PetManager mManager;
 
@@ -70,21 +77,26 @@ public class PetManager implements IDisplayView {
     }
 
 
-    public boolean createPetWindow()
+    public boolean createPetWindow(int startX, int startY, boolean sex)
     {
         if(mPetView != null)
             return false;
+        mSex = sex;
+        Log.d(TAG, "Pet sex is:"+mSex);
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(displayMetrics);
         mScreenWidth = displayMetrics.widthPixels;
         mScreenHeight = displayMetrics.heightPixels;
         mPetView = new PetView(mContext);
-        mPetView.setMovieResource(R.mipmap.gif1);
+        int[] movies = Const.MOVIES;
+        if(mSex)
+            movies = Const.MOVIES_GIRL;
+        mPetView.setMovieResource(movies[mMovieIndex]);
         mPetView.setOnCloseListener(new PetView.OnCloseListener() {
             @Override
             public void onClose() {
-                mDisplayPresenter.destroyPet();
+                mDisplayPresenter.destroyPet(mParams.x, mParams.y);
             }
         });
         mPetView.setOnMoveListener(new PetView.OnMoveListener() {
@@ -93,20 +105,49 @@ public class PetManager implements IDisplayView {
                 mDisplayPresenter.dragPet(newX, newY);
             }
         });
-        mPetView.setOnDoubleClickListener(new PetView.OnDoubleClickListener() {
+        mPetView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDoubleClick() {
-                if(!mIsAutoMove)
-                    mDisplayPresenter.startRun();
-                else
-                    mDisplayPresenter.stopRun();
+            public void onClick(View v) {
+                switch (mMovieIndex)
+                {
+                    case Const.MOVIE_ALARM:
+                        break;
+                    case Const.MOVIE_MSG:
+                        Intent intent = mContext.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                        if(intent != null)
+                            mContext.startActivity(intent);
+                        break;
+                    case Const.MOVIE_HUNGRY:
+//                        Intent i = mContext.getPackageManager().getLaunchIntentForPackage(mContext.getPackageName());
+                        Intent i = new Intent(Const.ACTION_FEED_ACTIVITY);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        mContext.startActivity(i);
+                        break;
+                }
+                if(mMovieIndex != Const.MOVIE_NORMAL && mMovieIndex != Const.MOVIE_HUNGRY) {
+                    //reset movie
+                    if(mDisplayPresenter.getPetModel().getPet().getPower() > 20)
+                        mDisplayPresenter.switchMovie(Const.MOVIE_NORMAL);
+                    else
+                        mDisplayPresenter.switchMovie(Const.MOVIE_HUNGRY);
+                }
             }
         });
+//        mPetView.setOnDoubleClickListener(new PetView.OnDoubleClickListener() {
+//            @Override
+//            public void onDoubleClick() {
+//                if(!mIsAutoMove)
+//                    mDisplayPresenter.startRun();
+//                else
+//                    mDisplayPresenter.stopRun();
+//            }
+//        });
         mParams = new WindowManager.LayoutParams();
         mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        mParams.x = 0;
-        mParams.y = 0;
+        mParams.format = PixelFormat.TRANSLUCENT;
+        mParams.x = startX;
+        mParams.y = startY;
         mParams.gravity = Gravity.LEFT|Gravity.TOP;
         mParams.width = mScreenHeight/10;
         mParams.height = mScreenHeight/10;
@@ -176,6 +217,18 @@ public class PetManager implements IDisplayView {
             return false;
         mPetView.showMessage(msg, duration);
         return true;
+    }
+
+    @Override
+    public void switchMovie(int index) {
+        if(mMovieIndex != index && mPetView != null && mPetView.getIsShow()) {
+            mMovieIndex = index;
+            int[] movies = Const.MOVIES;
+            if(mSex)
+                movies = Const.MOVIES_GIRL;
+            mPetView.setMovieResource(movies[mMovieIndex]);
+            Log.d(TAG, "setMovie, sex="+mSex+", resId="+movies[mMovieIndex]);
+        }
     }
 
     @Override
@@ -262,5 +315,5 @@ public class PetManager implements IDisplayView {
             mHandler.sendMessage(message);
             mHandler.postDelayed(this, 300);
         }
-    };
+    }
 }

@@ -2,18 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-
+    android:orientation="vertical">
     <LinearLayout
+        android:background="@color/white"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
         <TextView
             android:id="@+id/title_paired_devices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/PetAttrTitleStyle"
+            android:paddingLeft="@dimen/item_margin"
+            android:paddingTop="@dimen/text_padding"
+            android:paddingBottom="@dimen/text_padding"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
             android:text="@string/title_paired_devices"
             />
 
@@ -25,18 +29,23 @@
             />
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="1"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_weight="2"
         android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
         <TextView
             android:id="@+id/title_new_devices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/PetAttrTitleStyle"
+            android:paddingLeft="@dimen/item_margin"
+            android:paddingTop="@dimen/text_padding"
+            android:paddingBottom="@dimen/text_padding"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/text_margin"
             android:text="@string/title_other_devices"
             />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/other_devices"
             android:layout_width="match_parent"

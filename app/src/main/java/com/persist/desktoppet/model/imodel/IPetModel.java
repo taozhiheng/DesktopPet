@@ -1,6 +1,10 @@
 package com.persist.desktoppet.model.imodel;
 
+import android.graphics.Point;
+
 import com.persist.desktoppet.bean.PetBean;
+import com.persist.desktoppet.model.PowerChangedListener;
+import com.persist.desktoppet.model.impl.PetModelImpl;
 
 /**
  * Created by taozhiheng on 16-4-7.
@@ -8,6 +12,8 @@ import com.persist.desktoppet.bean.PetBean;
  * pet model interface
  */
 public interface IPetModel {
+
+    public void setPowerChangedListener(PowerChangedListener l);
 
     void createPet(PetBean petBean);
 
@@ -18,6 +24,10 @@ public interface IPetModel {
     void savePet();
 
     PetBean getPet();
+
+    Point getLastPos();
+
+    void setLastPos(int lastX, int lastY);
 
     boolean hasIntimatePet();
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:enabled="false"
+        />
     <item android:id="@+id/drawer_alarm"
         android:title="@string/drawer_alarm"
         android:icon="@mipmap/alarm"/>
@@ -9,5 +11,5 @@
         android:icon="@mipmap/settings"/>
     <item android:id="@+id/drawer_jump"
         android:title="微信"
-        android:icon="@mipmap/settings"/>
+        android:icon="@mipmap/ic_love"/>
 </menu>

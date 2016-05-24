@@ -150,17 +150,17 @@ public class PetBean {
 
     public void increasePower(int power)
     {
-        if(mPower > power)
-            mPower -= power;
-        else
-            mPower = 0;
+        mPower += power;
+        if(mPower > MAX_POWER)
+            mPower = MAX_POWER;
     }
 
     public void decreasePower(int power)
     {
-        mPower += power;
-        if(mPower > MAX_POWER)
-            mPower = MAX_POWER;
+        if(mPower > power)
+            mPower -= power;
+        else
+            mPower = 0;
     }
 
     public String getName() {

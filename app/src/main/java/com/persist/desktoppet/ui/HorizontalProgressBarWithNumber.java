@@ -206,20 +206,20 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 		if (mIfDrawText)
 		{
 			mPaint.setColor(generateTextColor());
-//			canvas.drawText(text, progressPosX, -textHeight, mPaint);
-			canvas.drawText(text, mRealWidth-textWidth, -textHeight, mPaint);
+			canvas.drawText(text, progressPosX, -textHeight, mPaint);
+//			canvas.drawText(text, mRealWidth-textWidth, -textHeight, mPaint);
 
 		}
 
 		// draw unreached bar
 		if (!noNeedBg)
 		{
-//			float start = progressPosX + mTextOffset / 2 + textWidth;
-			float start = progressPosX;
+			float start = progressPosX + mTextOffset / 2 + textWidth;
+//			float start = progressPosX;
 			mPaint.setColor(mUnReachedBarColor);
 			mPaint.setStrokeWidth(mUnReachedProgressBarHeight);
-//			canvas.drawLine(start, 0, mRealWidth, 0, mPaint);
-			canvas.drawLine(start, 0, mRealWidth-textWidth, 0, mPaint);
+			canvas.drawLine(start, 0, mRealWidth, 0, mPaint);
+//			canvas.drawLine(start, 0, mRealWidth-textWidth, 0, mPaint);
 
 		}
 

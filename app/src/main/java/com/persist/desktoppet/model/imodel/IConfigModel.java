@@ -15,7 +15,7 @@ public interface IConfigModel {
 
     void resetThemeConfig(int theme);
 
-    void resetRingConfig(boolean ring);
+    void resetReceiveConfig(boolean receive);
 
-    void resetVibrateConfig(boolean vibrate);
+    void resetRingConfig(boolean ring);
 }

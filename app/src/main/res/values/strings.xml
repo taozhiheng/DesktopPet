@@ -1,5 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">FingerPet</string>
+    <!--<string name="app_name">FingerPet</string>-->
+    <string name="app_name">指尖宠物</string>
 
     <string name="title_create">创建宠物</string>
 
@@ -23,14 +24,16 @@
     <string name="power">体　力</string>
     <string name="phrase">口头禅</string>
     <string name="theme">主题</string>
-    <string name="ring">接受微信响铃提醒</string>
-    <string name="alarm">接受微信震动提醒</string>
+    <string name="receive_msg">接收微信消息</string>
+    <string name="sound">宠物语音</string>
     <string name="change_pet">更换宠物</string>
     <string name="sex_male">雄</string>
     <string name="sex_female">雌</string>
     <string name="ok">完成</string>
 
     <string name="connect_pet">宠物配对</string>
+
+    <string name="connect_state">连接状态</string>
 
     <string-array name="theme_array">
         <item>男生版</item>
@@ -73,5 +76,7 @@
     <string name="scan">扫描</string>
 
     <string name="edit_pet">编辑</string>
+
+    <string name="pet_power">体力值</string>
 
 </resources>

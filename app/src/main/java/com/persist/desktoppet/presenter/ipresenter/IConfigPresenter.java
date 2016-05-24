@@ -13,7 +13,7 @@ public interface IConfigPresenter {
 
     void resetConfigTheme(int theme);
 
-    void resetRingConfig(boolean ring);
+    void resetReceiveConfig(boolean receive);
 
-    void resetVibrateConfig(boolean vibrate);
+    void resetRingConfig(boolean ring);
 }

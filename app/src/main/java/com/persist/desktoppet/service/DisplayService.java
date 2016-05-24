@@ -3,8 +3,12 @@ package com.persist.desktoppet.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.annotation.Nullable;
-
+import android.util.Log;
+import android.view.WindowManager;
+import com.persist.desktoppet.model.PowerChangedListener;
+import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
 import com.persist.desktoppet.view.window.PetManager;
@@ -19,6 +23,9 @@ public class DisplayService extends Service {
 
     private PetManager mPetManager;
 
+    private PowerDecreaseRunnable mDecreaseRunnable;
+    private PowerHandler mPowerHandler;
+
     private final static String TAG = "DisplayService";
 
     @Override
@@ -26,6 +33,19 @@ public class DisplayService extends Service {
         LogUtil.d(TAG, "onCreate");
         super.onCreate();
         mPetManager = PetManager.newInstance(getApplicationContext());
+        mPowerHandler = new PowerHandler(getApplicationContext(), mPetManager.getPresenter().getDisplayView());
+        IPetModel petModel = mPetManager.getPresenter().getPetModel();
+        petModel.setPowerChangedListener(new PowerChangedListener() {
+            @Override
+            public void onPowerChanged(int power, int oldPower) {
+                Log.d(TAG, "power="+power+", old="+oldPower);
+                Message msg = mPowerHandler.obtainMessage();
+                msg.arg1 = power;
+                msg.arg2 = oldPower;
+                mPowerHandler.sendMessage(msg);
+            }
+        });
+        mDecreaseRunnable = new PowerDecreaseRunnable(petModel);
     }
 
     @Nullable
@@ -47,6 +67,8 @@ public class DisplayService extends Service {
         {
             case Const.SERVICE_START:
                 mPetManager.getPresenter().createPet();
+                mDecreaseRunnable.reset();
+                new Thread(mDecreaseRunnable).start();
                 break;
             case Const.SERVICE_RENAME:
                 mPetManager.getPresenter().rename(intent.getStringExtra(Const.KEY_NAME));
@@ -59,7 +81,12 @@ public class DisplayService extends Service {
     public void onDestroy() {
         LogUtil.d(TAG, "onDestroy");
         super.onDestroy();
-        mPetManager.getPresenter().destroyPet();
+        if(mDecreaseRunnable != null)
+            mDecreaseRunnable.cancel();
+        if(mPowerHandler != null)
+            mPowerHandler.removeCallbacksAndMessages(null);
+        WindowManager.LayoutParams params = mPetManager.getPetParams();
+        mPetManager.getPresenter().destroyPet(params.x, params.y);
         Intent intent = new Intent(Const.KEY_RECEIVER_MAIN);
         sendBroadcast(intent);
     }
