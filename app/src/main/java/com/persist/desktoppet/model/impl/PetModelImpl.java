@@ -49,13 +49,17 @@ public class PetModelImpl implements IPetModel {
         mPet.setId(petBean.getId());
         mPet.setPower(PetBean.MAX_POWER);
         mSp.edit().putBoolean(Const.KEY_IS_FIRST, false).apply();
+        mSp.edit().putLong(Const.KEY_LAST_TIME, System.currentTimeMillis());
         savePet();
     }
 
     @Override
     public void loadPet() {
         mPet.setName(mSp.getString(Const.KEY_PET_NAME, null));
-        mPet.setAge(mSp.getLong(Const.KEY_PET_AGE, 0));
+//        mPet.setAge(mSp.getLong(Const.KEY_PET_AGE, 0));
+        long lastTime = mSp.getLong(Const.KEY_LAST_TIME, System.currentTimeMillis());
+        long days = (System.currentTimeMillis()-lastTime)/(24*60*60*1000);
+        mPet.setAge((int)days);
         mPet.setType(mSp.getInt(Const.KEY_PET_TYPE, Const.TYPE_CAT));
         mPet.setSex(mSp.getBoolean(Const.KEY_PET_SEX, false));
         mPet.setLevel(mSp.getInt(Const.KEY_PET_LEVEL, 0));
@@ -167,7 +171,7 @@ public class PetModelImpl implements IPetModel {
 
     @Override
     public void setIntimatePet(PetBean petBean) {
-        if(mPet.getAlone())
+        if(!mPet.getAlone())
             return;
         mPet.setAlone(false);
         SharedPreferences.Editor editor = mSp.edit();

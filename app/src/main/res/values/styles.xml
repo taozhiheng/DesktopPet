@@ -39,4 +39,8 @@
         <!--<item name="android:background">@color/divider</item>-->
     </style>
 
+    <style name="Theme.AlarmDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/bg</item>
+    </style>
+
 </resources>

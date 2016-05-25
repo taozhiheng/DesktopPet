@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,5 +22,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/PetAttrTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/intimate_state" />
+        <TextView
+            style="@style/PetAttrContentStyle"
+            android:id="@+id/connect_intimate"
+            android:text="@string/intimate_null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/connect_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/connect_recycler"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/connect_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/text_padding"
+                android:background="@drawable/text_input_bg"
+                android:layout_gravity="bottom"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/connect_send"
+                android:layout_marginLeft="@dimen/text_padding"
+                android:layout_marginRight="@dimen/text_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ok_btn_bg"
+                android:text="@string/send" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/connect_hi"
+                android:src="@drawable/ic_hi"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:id="@+id/connect_set"
+                android:src="@drawable/ic_set_intimate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/set_intimate"/>
+            <ImageView
+                android:id="@+id/connect_remove"
+                android:src="@drawable/ic_remove_intimate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/remove_intimate"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

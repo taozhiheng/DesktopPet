@@ -22,15 +22,15 @@
         app:showAsAction="ifRoom"
         android:title="@string/secure_connect"/>
 
-    <item
-        android:id="@+id/insecure_connect_scan"
-        android:icon="@mipmap/ic_insecure"
-        app:showAsAction="ifRoom"
-        android:title="@string/insecure_connect"/>
+    <!--<item-->
+        <!--android:id="@+id/insecure_connect_scan"-->
+        <!--android:icon="@mipmap/ic_insecure"-->
+        <!--app:showAsAction="ifRoom"-->
+        <!--android:title="@string/insecure_connect"/>-->
 
     <item
         android:id="@+id/discoverable"
-        android:icon="@mipmap/bluetooth"
+        android:icon="@mipmap/ic_discover"
         app:showAsAction="ifRoom"
         android:title="@string/discoverable"/>
 

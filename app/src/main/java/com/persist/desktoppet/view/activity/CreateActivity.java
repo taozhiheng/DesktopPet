@@ -54,7 +54,6 @@ public class CreateActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mSex.toggle();
-                Toast.makeText(getBaseContext(), "sex:"+mSex.isShowBack(), Toast.LENGTH_SHORT).show();
             }
         });
     }

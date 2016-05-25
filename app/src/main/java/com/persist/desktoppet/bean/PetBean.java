@@ -1,5 +1,8 @@
 package com.persist.desktoppet.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.persist.desktoppet.util.Const;
 
 import java.util.IllegalFormatCodePointException;
@@ -9,7 +12,7 @@ import java.util.IllegalFormatCodePointException;
  *
  * pet bean
  */
-public class PetBean {
+public class PetBean implements Parcelable {
 
     //the name of the pet
     private String mName;
@@ -222,4 +225,49 @@ public class PetBean {
         return Const.LEVEL_GAP * (level+1);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mName);
+        dest.writeLong(this.mAge);
+        dest.writeInt(this.mType);
+        dest.writeByte(this.mSex ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.mLevel);
+        dest.writeInt(this.mExperience);
+        dest.writeString(this.mPhrase);
+        dest.writeInt(this.mEmotion);
+        dest.writeString(this.mId);
+        dest.writeByte(this.mAlone ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.mPower);
+    }
+
+    protected PetBean(Parcel in) {
+        this.mName = in.readString();
+        this.mAge = in.readLong();
+        this.mType = in.readInt();
+        this.mSex = in.readByte() != 0;
+        this.mLevel = in.readInt();
+        this.mExperience = in.readInt();
+        this.mPhrase = in.readString();
+        this.mEmotion = in.readInt();
+        this.mId = in.readString();
+        this.mAlone = in.readByte() != 0;
+        this.mPower = in.readInt();
+    }
+
+    public static final Parcelable.Creator<PetBean> CREATOR = new Parcelable.Creator<PetBean>() {
+        @Override
+        public PetBean createFromParcel(Parcel source) {
+            return new PetBean(source);
+        }
+
+        @Override
+        public PetBean[] newArray(int size) {
+            return new PetBean[size];
+        }
+    };
 }

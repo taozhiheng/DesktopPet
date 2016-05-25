@@ -1,6 +1,7 @@
 package com.persist.desktoppet.view.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,7 @@ import com.persist.desktoppet.R;
 import com.persist.desktoppet.bean.ConfigBean;
 import com.persist.desktoppet.presenter.impl.ConfigPresenterImpl;
 import com.persist.desktoppet.presenter.ipresenter.IConfigPresenter;
+import com.persist.desktoppet.service.WXListenService;
 import com.persist.desktoppet.view.iview.IConfigView;
 
 
@@ -110,8 +112,8 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
     public void loadConfig(ConfigBean config) {
         mId = config.getThemeConfig();
 //        mTheme.setText(getResources().getStringArray(R.array.theme_array)[mId]);
-        mRing.setChecked(config.getRingConfig());
-        mVibrate.setChecked(config.getVibrateConfig());
+        mRing.setChecked(config.getReceiveConfig());
+        mVibrate.setChecked(config.getRingConfig());
     }
 
     @Override
@@ -123,6 +125,12 @@ public class ConfigActivity extends BaseActivity implements IConfigView {
     @Override
     public void resetReceiveConfig(boolean receive) {
         //change service config
+        Intent intent = new Intent(this, WXListenService.class);
+        intent.setPackage(getPackageName());
+        if(receive)
+            startService(intent);
+        else
+            stopService(intent);
     }
 
     @Override

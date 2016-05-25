@@ -117,6 +117,7 @@ public class PetManager implements IDisplayView {
                         if(intent != null)
                             mContext.startActivity(intent);
                         break;
+                    case Const.MOVIE_NORMAL:
                     case Const.MOVIE_HUNGRY:
 //                        Intent i = mContext.getPackageManager().getLaunchIntentForPackage(mContext.getPackageName());
                         Intent i = new Intent(Const.ACTION_FEED_ACTIVITY);
@@ -133,15 +134,16 @@ public class PetManager implements IDisplayView {
                 }
             }
         });
-//        mPetView.setOnDoubleClickListener(new PetView.OnDoubleClickListener() {
-//            @Override
-//            public void onDoubleClick() {
+        mPetView.setOnDoubleClickListener(new PetView.OnDoubleClickListener() {
+            @Override
+            public void onDoubleClick() {
+                mDisplayPresenter.destroyPet(mParams.x, mParams.y);
 //                if(!mIsAutoMove)
 //                    mDisplayPresenter.startRun();
 //                else
 //                    mDisplayPresenter.stopRun();
-//            }
-//        });
+            }
+        });
         mParams = new WindowManager.LayoutParams();
         mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
@@ -219,6 +221,7 @@ public class PetManager implements IDisplayView {
         return true;
     }
 
+
     @Override
     public void switchMovie(int index) {
         if(mMovieIndex != index && mPetView != null && mPetView.getIsShow()) {
@@ -229,6 +232,11 @@ public class PetManager implements IDisplayView {
             mPetView.setMovieResource(movies[mMovieIndex]);
             Log.d(TAG, "setMovie, sex="+mSex+", resId="+movies[mMovieIndex]);
         }
+    }
+
+    @Override
+    public int getMovieIndex() {
+        return mMovieIndex;
     }
 
     @Override

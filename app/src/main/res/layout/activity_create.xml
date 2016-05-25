@@ -24,6 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </com.persist.desktoppet.ui.ReverseLayout>
+    <TextView
+        android:text="@string/create_hint"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:background="@color/white"
         android:layout_marginTop="@dimen/item_margin"

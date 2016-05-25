@@ -35,12 +35,15 @@ public class Const {
     public final static String PREF_PET = "DesktopPet_preference_pet";
 
     //service intent action
+    public final static String ACTION_LISTEN_SERVICE = "com.persist.desktoppet.service.WXListenService";
     public final static String ACTION_DISPLAY_SERVICE = "com.persist.desktoppet.service.DisplayService";
     public final static String ACTION_ALARM = "com.persist.desktop.receiver.alarm_trigger_action";
     public final static String ACTION_MAIN_ACTIVITY = "android.intent.action.MAIN";
     public final static String ACTION_FEED_ACTIVITY = "com.persist.desktoppet.view.activity.FeedActivity";
 
+    public final static String KEY_LAST_TIME = "DesktopPet_key_last_time";
     //data key
+    public final static String KEY_PET = "DesktopPet_key_pet";
     public final static String KEY_PET_NAME = "DesktopPet_key_pet_name";
     public final static String KEY_PET_AGE = "DesktopPet_key_pet_age";
     public final static String KEY_PET_TYPE = "DesktopPet_key_pet_type";
@@ -77,7 +80,10 @@ public class Const {
     public final static String KEY_SERVICE_ACTION = "DesktopPet_service_action";
     public final static int SERVICE_START = 0;
     public final static int SERVICE_RENAME = 1;
+    public final static int SERVICE_ALARM = 2;
+    public final static int SERVICE_MSG = 3;
     public final static String KEY_NAME = "DesktopPet_name";
+    public final static String KEY_MSG = "DesktopPet_msg";
 
     public final static String KEY_RECEIVER_MAIN = "DesktopPet_receiver_main";
     public final static String KEY_RECEIVER_FEED = "DesktopPet_receiver_feed";

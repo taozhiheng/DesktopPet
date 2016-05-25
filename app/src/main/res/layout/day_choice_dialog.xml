@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="20dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/day_0"
+        android:text="日"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:background="@drawable/day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/day_1"
+        android:text="一"
+        android:textSize="32sp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:background="@drawable/circle_day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/day_2"
+        android:text="二"
+        android:textSize="32sp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:background="@drawable/circle_day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/day_3"
+        android:text="三"
+        android:textSize="32sp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:background="@drawable/circle_day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/day_4"
+        android:text="四"
+        android:textSize="32sp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:background="@drawable/circle_day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/day_5"
+        android:text="五"
+        android:textSize="32sp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:background="@drawable/circle_day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/day_6"
+        android:text="六"
+        android:textSize="32sp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:background="@drawable/circle_day_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

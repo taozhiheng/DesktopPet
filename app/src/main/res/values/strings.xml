@@ -3,10 +3,13 @@
     <string name="app_name">指尖宠物</string>
 
     <string name="title_create">创建宠物</string>
+    <string name="create_hint">点击可切换</string>
 
     <string name="drawer_match">配对</string>
     <string name="drawer_alarm">闹钟</string>
     <string name="drawer_settings">设置</string>
+    <string name="drawer_about">关于</string>
+    <string name="drawer_help">帮助</string>
 
     <string name="display_wash">宠物洗澡</string>
     <string name="display_feed">宠物喂食</string>
@@ -16,6 +19,7 @@
     <string name="action_settings">设置</string>
     <string name="action_stop">Stop</string>
     <string name="window_title">Pet</string>
+    <string name="mac">设 备</string>
     <string name="name">昵　称</string>
     <string name="age">年　龄</string>
     <string name="type">类　别</string>
@@ -34,6 +38,8 @@
     <string name="connect_pet">宠物配对</string>
 
     <string name="connect_state">连接状态</string>
+    <string name="intimate_state">配对状态</string>
+    <string name="intimate_null">未配对</string>
 
     <string-array name="theme_array">
         <item>男生版</item>
@@ -53,7 +59,10 @@
     </string-array>
 
     <!--  BluetoothChat -->
-    <string name="send">Send</string>
+    <string name="send">发送</string>
+    <string name="say_hi">打招呼</string>
+    <string name="set_intimate">建立结对</string>
+    <string name="remove_intimate">解除结对</string>
     <string name="not_connected">You are not connected to a device</string>
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
     <string name="title_connecting">connecting…</string>
@@ -78,5 +87,13 @@
     <string name="edit_pet">编辑</string>
 
     <string name="pet_power">体力值</string>
+
+    <string name="play_sound">闹钟响了!</string>
+    <string name="stop_alarm">关闭</string>
+
+    <string name="help_title">如何开启和关闭悬浮窗</string>
+    <string name="help_content">低版本系统可以直接点击主界面的气泡开启和关闭悬浮窗\n如果您的Android系统版本较高，可能需要通过设置等安全选项对应用悬浮窗权限授权.</string>
+
+    <string name="notify_describe">接收微信通知</string>
 
 </resources>

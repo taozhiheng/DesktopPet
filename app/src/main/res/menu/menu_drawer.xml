@@ -10,6 +10,9 @@
         android:title="@string/drawer_settings"
         android:icon="@mipmap/settings"/>
     <item android:id="@+id/drawer_jump"
-        android:title="微信"
-        android:icon="@mipmap/ic_love"/>
+        android:title="@string/drawer_about"
+        android:icon="@mipmap/ic_about"/>
+    <item android:id="@+id/drawer_help"
+        android:title="@string/drawer_help"
+        android:icon="@mipmap/ic_help"/>
 </menu>

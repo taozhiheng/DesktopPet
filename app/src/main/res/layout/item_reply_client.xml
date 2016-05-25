@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sl_holo_alpha_greener"
+    android:padding="12dp" >
+
+    <TextView
+        android:id="@+id/textView_listItem_feedBack_reply_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:textColor="@drawable/sl_txt_gray_lighter"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView_listItem_feedBack_reply_dev_portrait"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_listItem_feedBack_reply_date"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_feedback_portrait_dev" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_listItem_feedBack_reply_dev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView_listItem_feedBack_reply_dev_portrait"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="64dp"
+        android:layout_toRightOf="@+id/imageView_listItem_feedBack_reply_dev_portrait"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_listItem_feedBack_reply_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_feedback_reply_dev"
+            android:gravity="left|center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="4dp"
+            android:paddingTop="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/imageView_listItem_feedBack_reply_failed"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_feedback_msg_failed"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_listItem_feedBack_reply"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>

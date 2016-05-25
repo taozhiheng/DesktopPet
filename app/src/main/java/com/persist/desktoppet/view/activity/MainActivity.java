@@ -129,15 +129,17 @@ public class MainActivity extends BaseActivity implements IMainView{
                 {
 
                     case R.id.drawer_alarm:
+                        startActivity(new Intent(MainActivity.this, AlarmActivity.class));
                         break;
                     case R.id.drawer_settings:
                         editConfig();
                         break;
                     case R.id.drawer_jump:
-                        Intent intent = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
-                        //com.tencent.mm.ui.LauncherUI
-                        if(intent != null)
-                            startActivity(intent);
+//                        Intent intent = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                        break;
+                    case R.id.drawer_help:
+                        startActivity(new Intent(MainActivity.this, HelpActivity.class));
                         break;
                 }
                 return true;
@@ -155,12 +157,6 @@ public class MainActivity extends BaseActivity implements IMainView{
         mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    //申请WRITE_EXTERNAL_STORAGE权限
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW}, 0);
-                    return;
-                }
                 if(PetApplication.isServiceRunning(getApplicationContext(), Const.ACTION_DISPLAY_SERVICE))
                 {
                     LogUtil.d(TAG, "service is running");

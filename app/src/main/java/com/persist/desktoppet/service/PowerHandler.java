@@ -29,9 +29,9 @@ public class PowerHandler extends Handler {
         super.handleMessage(msg);
         IDisplayView displayView = mRef.get();
         if(displayView != null) {
-            if (msg.arg1 <= 20)
+            if (msg.arg1 <= 20 && msg.what == Const.MOVIE_NORMAL)
                 displayView.switchMovie(Const.MOVIE_HUNGRY);
-            else if (msg.arg1 > 20)
+            else if (msg.arg1 > 20 && msg.what == Const.MOVIE_HUNGRY)
                displayView.switchMovie(Const.MOVIE_NORMAL);
         }
         Context context = mContextRef.get();

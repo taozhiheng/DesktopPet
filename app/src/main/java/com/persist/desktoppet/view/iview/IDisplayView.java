@@ -14,6 +14,7 @@ public interface IDisplayView {
     boolean rename(String name);
     boolean showMessage(String msg, long duration);
     void switchMovie(int index);
+    int getMovieIndex();
     void startRun();
     void stopRun();
 }

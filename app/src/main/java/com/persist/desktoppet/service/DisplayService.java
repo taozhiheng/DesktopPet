@@ -7,7 +7,11 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import com.persist.desktoppet.PetApplication;
 import com.persist.desktoppet.model.PowerChangedListener;
+import com.persist.desktoppet.model.imodel.IConfigModel;
 import com.persist.desktoppet.model.imodel.IPetModel;
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.util.LogUtil;
@@ -46,6 +50,17 @@ public class DisplayService extends Service {
             }
         });
         mDecreaseRunnable = new PowerDecreaseRunnable(petModel);
+
+        IConfigModel model = PetApplication.getConfigModel(this);
+        model.loadConfig();
+        boolean listen = model.getConfig().getReceiveConfig();
+        Log.d(TAG, "onCreate, listen="+listen);
+        if(listen)
+        {
+            Intent intent = new Intent(this, WXListenService.class);
+            intent.setPackage(getPackageName());
+            startService(intent);
+        }
     }
 
     @Nullable
@@ -72,6 +87,14 @@ public class DisplayService extends Service {
                 break;
             case Const.SERVICE_RENAME:
                 mPetManager.getPresenter().rename(intent.getStringExtra(Const.KEY_NAME));
+                break;
+            case Const.SERVICE_ALARM:
+                mPetManager.getPresenter().switchMovie(Const.MOVIE_ALARM);
+                break;
+            case Const.SERVICE_MSG:
+                mPetManager.getPresenter().switchMovie(Const.MOVIE_MSG);
+                Toast.makeText(getApplicationContext(), intent.getStringExtra(Const.KEY_MSG),
+                        Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onStartCommand(intent, flags, startId);

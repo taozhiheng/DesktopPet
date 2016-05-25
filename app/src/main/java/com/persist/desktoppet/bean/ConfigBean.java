@@ -1,7 +1,5 @@
 package com.persist.desktoppet.bean;
 
-import java.util.List;
-
 /**
  * Created by taozhiheng on 16-4-7.
  *
@@ -12,9 +10,9 @@ public class ConfigBean {
     //the current theme of the app, 0 represents boy version, 1 represents girl version
     private int mTheme;
     //whether the app should ring when receiving a message
-    private boolean mRing;
+    private boolean mReceive;
     //whether the app should vibrate when receiving a message
-    private boolean mVibrate;
+    private boolean mRing;
 
     public ConfigBean()
     {
@@ -23,8 +21,8 @@ public class ConfigBean {
 
     public ConfigBean(int theme, boolean ring, boolean vibrate) {
         this.mTheme = theme;
-        this.mRing = ring;
-        this.mVibrate = vibrate;
+        this.mReceive = ring;
+        this.mRing = vibrate;
     }
 
     public int getThemeConfig()
@@ -32,14 +30,14 @@ public class ConfigBean {
         return mTheme;
     }
 
+    public boolean getReceiveConfig()
+    {
+        return mReceive;
+    }
+
     public boolean getRingConfig()
     {
         return mRing;
-    }
-
-    public boolean getVibrateConfig()
-    {
-        return mVibrate;
     }
 
     public void setThemeConfig(int theme)
@@ -47,13 +45,13 @@ public class ConfigBean {
         this.mTheme = theme;
     }
 
+    public void setReceiveConfig(boolean receive)
+    {
+        this.mReceive = receive;
+    }
+
     public void setRingConfig(boolean ring)
     {
         this.mRing = ring;
-    }
-
-    public void setVibrateConfig(boolean vibrate)
-    {
-        this.mVibrate = vibrate;
     }
 }

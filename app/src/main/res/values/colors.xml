@@ -6,6 +6,15 @@
     <color name="colorPrimary">#87cefa</color>
     <color name="colorPrimaryDark">#84ceeb</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="alpha_black">#20000000</color>
+    <color name="alpha_white">#20FFFFFF</color>
+    <color name="holo_blue_light">#ff33b5e5</color>
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_green_dark">#ff669900</color>
+    <color name="text_gray">#8555</color>
+
     <color name="lightPink">#fff0f5</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
@@ -15,6 +24,7 @@
     <color name="pink">#ff69b4</color>
     <color name="blue">#00bfff</color>
     <color name="yellow">#ffff00</color>
+    <color name="dark">#666666</color>
 
     <color name="pinkBlue">#b0e0e6</color>
     <color name="darkBlue">#5f9ea0</color>
