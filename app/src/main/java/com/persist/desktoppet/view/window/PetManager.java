@@ -224,6 +224,7 @@ public class PetManager implements IDisplayView {
 
     @Override
     public void switchMovie(int index) {
+        Log.d(TAG, "try to setMovie, sex="+mSex+", from index="+mMovieIndex+" to index "+index);
         if(mMovieIndex != index && mPetView != null && mPetView.getIsShow()) {
             mMovieIndex = index;
             int[] movies = Const.MOVIES;

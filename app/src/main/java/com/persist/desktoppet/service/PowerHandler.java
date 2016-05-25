@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.persist.desktoppet.util.Const;
 import com.persist.desktoppet.view.iview.IDisplayView;
@@ -14,6 +15,8 @@ import java.lang.ref.WeakReference;
  * Created by taozhiheng on 16-5-24.
  */
 public class PowerHandler extends Handler {
+
+    private final static String TAG = "PowerHandler";
 
     private WeakReference<Context> mContextRef;
     private WeakReference<IDisplayView> mRef;
@@ -29,10 +32,14 @@ public class PowerHandler extends Handler {
         super.handleMessage(msg);
         IDisplayView displayView = mRef.get();
         if(displayView != null) {
-            if (msg.arg1 <= 20 && msg.what == Const.MOVIE_NORMAL)
+            Log.d(TAG, "handleMessage");
+            if (msg.arg1 <= 20 && msg.what == Const.MOVIE_NORMAL) {
                 displayView.switchMovie(Const.MOVIE_HUNGRY);
-            else if (msg.arg1 > 20 && msg.what == Const.MOVIE_HUNGRY)
-               displayView.switchMovie(Const.MOVIE_NORMAL);
+
+            }
+            else if (msg.arg1 > 20 && msg.what == Const.MOVIE_HUNGRY) {
+                displayView.switchMovie(Const.MOVIE_NORMAL);
+            }
         }
         Context context = mContextRef.get();
         if(context != null) {

@@ -73,7 +73,6 @@
 
         <service
             android:name=".service.WXListenService"
-            android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>

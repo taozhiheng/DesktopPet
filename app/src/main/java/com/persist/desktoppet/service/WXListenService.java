@@ -4,6 +4,7 @@ package com.persist.desktoppet.service;
  */
 
 import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -29,16 +30,28 @@ public class WXListenService extends AccessibilityService {
     }
 
     @Override
+    protected void onServiceConnected() {
+        super.onServiceConnected();
+        AccessibilityServiceInfo info = new AccessibilityServiceInfo();
+        info.eventTypes = AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED|AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
+        |AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED;
+        info.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
+        setServiceInfo(info);
+
+    }
+
+    @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         switch (eventType) {
             //第一步：监听通知栏消息
             case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
+                Log.i(TAG, "notificationChanged:");
                 List<CharSequence> texts = event.getText();
                 if (!texts.isEmpty()) {
                     for (CharSequence text : texts) {
                         String content = text.toString();
-                        Log.i("demo", "text:" + content);
+                        Log.i(TAG, "text:" + content);
 
                         Intent intent = new Intent(Const.ACTION_DISPLAY_SERVICE);
                         intent.setPackage(getPackageName());
@@ -66,6 +79,7 @@ public class WXListenService extends AccessibilityService {
                 break;
             //第二步：监听是否进入微信红包消息界面
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
+                Log.i(TAG, "windowStateChanged:");
                 String className = event.getClassName().toString();
                 if (className.equals("com.tencent.mm.ui.LauncherUI")) {
                     //开始抢红包
@@ -75,6 +89,9 @@ public class WXListenService extends AccessibilityService {
                     //开始打开红包
                     openPacket();
                 }
+                break;
+            case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
+                Log.i(TAG, "windowContentChanged:");
                 break;
         }
     }

@@ -46,6 +46,7 @@ public class DisplayService extends Service {
                 Message msg = mPowerHandler.obtainMessage();
                 msg.arg1 = power;
                 msg.arg2 = oldPower;
+                msg.what = mPetManager.getMovieIndex();
                 mPowerHandler.sendMessage(msg);
             }
         });
