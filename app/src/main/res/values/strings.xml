@@ -30,6 +30,8 @@
     <string name="theme">主题</string>
     <string name="receive_msg">接收微信消息</string>
     <string name="sound">宠物语音</string>
+    <string name="care">特别关心</string>
+    <string name="care_hint">特别关心的人或消息关键字</string>
     <string name="change_pet">更换宠物</string>
     <string name="sex_male">雄</string>
     <string name="sex_female">雌</string>
@@ -91,9 +93,11 @@
     <string name="play_sound">闹钟响了!</string>
     <string name="stop_alarm">关闭</string>
 
-    <string name="help_title">如何开启和关闭悬浮窗</string>
-    <string name="help_content">低版本系统可以直接点击主界面的气泡开启和关闭悬浮窗\n如果您的Android系统版本较高，可能需要通过设置等安全选项对应用悬浮窗权限授权.</string>
+    <string name="help_float_title">如何开启和关闭悬浮窗</string>
+    <string name="help_float_content">低版本系统可以直接点击主界面的气泡开启和关闭悬浮窗\n如果您的Android系统版本较高，可能需要通过设置等安全选项对应用悬浮窗权限授权.</string>
+    <string name="help_wx_title">如何接收微信提醒</string>
+    <string name="help_wx_content">接收微信依赖于系统的辅助功能,如无法正常接收,请开启相应类似无障碍的辅助功能</string>
 
-    <string name="notify_describe">接收微信通知</string>
+    <string name="notify_describe">此辅助功能用于接收微信通知,并通过宠物动画来提醒</string>
 
 </resources>

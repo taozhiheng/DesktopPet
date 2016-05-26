@@ -45,4 +45,10 @@ public class ConfigPresenterImpl implements IConfigPresenter {
         mConfigModel.resetRingConfig(ring);
         mConfigView.resetRingConfig(ring);
     }
+
+    @Override
+    public void resetCareConfig(String care) {
+        mConfigModel.resetCareConfig(care);
+        mConfigView.resetCareConfig(care);
+    }
 }

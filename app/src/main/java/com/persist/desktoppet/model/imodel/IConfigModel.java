@@ -18,4 +18,6 @@ public interface IConfigModel {
     void resetReceiveConfig(boolean receive);
 
     void resetRingConfig(boolean ring);
+
+    void resetCareConfig(String care);
 }

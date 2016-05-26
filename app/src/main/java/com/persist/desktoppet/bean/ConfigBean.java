@@ -13,16 +13,19 @@ public class ConfigBean {
     private boolean mReceive;
     //whether the app should vibrate when receiving a message
     private boolean mRing;
+    //key words
+    private String mCare;
 
     public ConfigBean()
     {
 
     }
 
-    public ConfigBean(int theme, boolean ring, boolean vibrate) {
+    public ConfigBean(int theme, boolean ring, boolean vibrate, String care) {
         this.mTheme = theme;
         this.mReceive = ring;
         this.mRing = vibrate;
+        this.mCare = care;
     }
 
     public int getThemeConfig()
@@ -40,6 +43,11 @@ public class ConfigBean {
         return mRing;
     }
 
+    public String getCareConfig()
+    {
+        return mCare;
+    }
+
     public void setThemeConfig(int theme)
     {
         this.mTheme = theme;
@@ -53,5 +61,10 @@ public class ConfigBean {
     public void setRingConfig(boolean ring)
     {
         this.mRing = ring;
+    }
+
+    public void setCareConfig(String care)
+    {
+        this.mCare = care;
     }
 }

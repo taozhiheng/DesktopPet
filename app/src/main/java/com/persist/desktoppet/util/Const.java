@@ -76,14 +76,17 @@ public class Const {
     public final static String KEY_THEME = "DesktopPet_key_theme";
     public final static String KEY_RECEIVE = "DesktopPet_key_receive";
     public final static String KEY_RING = "DesktopPet_key_ring";
+    public final static String KEY_CARE = "DesktopPet_key_care";
 
     public final static String KEY_SERVICE_ACTION = "DesktopPet_service_action";
     public final static int SERVICE_START = 0;
     public final static int SERVICE_RENAME = 1;
     public final static int SERVICE_ALARM = 2;
     public final static int SERVICE_MSG = 3;
+    public final static int SERVICE_UPDATE = 4;//for wx listen
     public final static String KEY_NAME = "DesktopPet_name";
     public final static String KEY_MSG = "DesktopPet_msg";
+
 
     public final static String KEY_RECEIVER_MAIN = "DesktopPet_receiver_main";
     public final static String KEY_RECEIVER_FEED = "DesktopPet_receiver_feed";

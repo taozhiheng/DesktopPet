@@ -28,6 +28,7 @@ public class ConfigModelImpl implements IConfigModel {
         mConfig.setThemeConfig(mSp.getInt(Const.KEY_THEME, 0));
         mConfig.setReceiveConfig(mSp.getBoolean(Const.KEY_RECEIVE, false));
         mConfig.setRingConfig(mSp.getBoolean(Const.KEY_RING, false));
+        mConfig.setCareConfig(mSp.getString(Const.KEY_CARE, null));
     }
 
     @Override
@@ -51,5 +52,11 @@ public class ConfigModelImpl implements IConfigModel {
     public void resetRingConfig(boolean ring) {
         mConfig.setRingConfig(ring);
         mSp.edit().putBoolean(Const.KEY_RING, ring).apply();
+    }
+
+    @Override
+    public void resetCareConfig(String care) {
+        mConfig.setCareConfig(care);
+        mSp.edit().putString(Const.KEY_CARE, care).apply();
     }
 }

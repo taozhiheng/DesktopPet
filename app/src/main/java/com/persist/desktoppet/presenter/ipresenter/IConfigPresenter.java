@@ -16,4 +16,6 @@ public interface IConfigPresenter {
     void resetReceiveConfig(boolean receive);
 
     void resetRingConfig(boolean ring);
+
+    void resetCareConfig(String care);
 }

@@ -3,30 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.persist.desktoppet.view.activity.HelpActivity">
-    <TextView
-        style="@style/PetAttrTitleStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/help_float_title" />
+    android:orientation="vertical"
+    tools:context="com.persist.desktoppet.view.activity.CareActivity">
     <TextView
         style="@style/PetAttrContentStyle"
-        android:text="@string/help_float_content"
-        android:layout_width="match_parent"
+        android:text="@string/care"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
+    <EditText
         style="@style/PetAttrTitleStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/help_wx_title" />
-    <TextView
-        style="@style/PetAttrContentStyle"
-        android:text="@string/help_wx_content"
+        android:id="@+id/care"
+        android:hint="@string/care_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

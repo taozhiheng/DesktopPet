@@ -4,5 +4,5 @@
     android:canRetrieveWindowContent="true"
     android:description="@string/notify_describe"
     android:notificationTimeout="100"
+    android:packageNames="com.tencent.mm"
      />
-    <!--android:packageNames="com.tencent.mm"-->

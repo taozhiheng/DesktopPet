@@ -9,22 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--<LinearLayout-->
-            <!--android:background="@color/white"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-            <!--<TextView-->
-                <!--style="@style/PetAttrContentStyle"-->
-                <!--android:text="@string/theme"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-            <!--<TextView-->
-                <!--style="@style/AppendContentStyle"-->
-                <!--android:id="@+id/config_theme"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content" />-->
-        <!--</LinearLayout>-->
-
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/PetAttrContentStyle"
+                android:text="@string/sound"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.SwitchCompat
+                style="@style/PetAttrContentStyle"
+                android:id="@+id/config_ring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <LinearLayout
             android:background="@color/white"
             android:layout_marginTop="@dimen/item_margin"
@@ -38,26 +38,28 @@
                 android:layout_height="wrap_content" />
             <android.support.v7.widget.SwitchCompat
                 style="@style/PetAttrContentStyle"
-                android:id="@+id/config_ring"
+                android:id="@+id/config_receive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <View style="@style/DividerStyle" />
         <LinearLayout
+            android:id="@+id/config_care_container"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 style="@style/PetAttrContentStyle"
-                android:text="@string/sound"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <android.support.v7.widget.SwitchCompat
-                style="@style/PetAttrContentStyle"
-                android:id="@+id/config_vibrate"
+                android:text="@string/care"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <TextView
+                style="@style/PetAttrTitleStyle"
+                android:id="@+id/config_care"
+                android:gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
+        <View style="@style/DividerStyle" />
     </LinearLayout>
 </ScrollView>

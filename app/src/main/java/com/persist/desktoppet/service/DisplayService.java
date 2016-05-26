@@ -60,6 +60,7 @@ public class DisplayService extends Service {
         {
             Intent intent = new Intent(this, WXListenService.class);
             intent.setPackage(getPackageName());
+            intent.putExtra(Const.KEY_CARE, model.getConfig().getCareConfig());
             startService(intent);
         }
     }
@@ -94,8 +95,9 @@ public class DisplayService extends Service {
                 break;
             case Const.SERVICE_MSG:
                 mPetManager.getPresenter().switchMovie(Const.MOVIE_MSG);
-                Toast.makeText(getApplicationContext(), intent.getStringExtra(Const.KEY_MSG),
-                        Toast.LENGTH_SHORT).show();
+                String msg = intent.getStringExtra(Const.KEY_MSG);
+//                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "wx msg:"+msg);
                 break;
         }
         return super.onStartCommand(intent, flags, startId);
